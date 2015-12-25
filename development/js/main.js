@@ -112,6 +112,11 @@ var mapView = {
             });
         }
 
+        // Close infoWindow when map clicked
+        google.maps.event.addListener(map, 'click', function(e) {
+            infowindow.close();
+        });
+
     }
 };
 
