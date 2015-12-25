@@ -29,10 +29,14 @@
 
         <div class="wrapper">
             <div id="sidebar" class="sidebar">
-                <h1>A Vegan Foodie's Guide to Newtown, Sydney</h1>
-                <ul id="place-list" data-bind="foreach: placeList">
-                    <li data-bind="text: title"></li>
-                </ul>
+                <div class="section__black">
+                    <h1>A Vegan Foodie's Guide to Newtown, Sydney</h1>
+                </div>
+                <div class="section__blue">
+                    <ul id="place-list" data-bind="foreach: placeList">
+                        <li data-bind="text: title"></li>
+                    </ul>
+                </div>
             </div>
             <div id="map" class="map"></div>
         </div> <!-- .wrapper -->
