@@ -55,27 +55,34 @@ var markers = [
     }
 ];
 
-// Initialise map
-function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -33.8999386, lng: 151.1714448},
-        zoom: 15
-    });
-
-    // Create markers on map
-    for (i = 0; i < markers.length; i++) {
-        new google.maps.Marker({
-            position: markers[i].position,
-            title: markers[i].title,
-            map: map
-        });
+var mapViewModel = {
+    init: function() {
+        mapView.init();
     }
-
 };
+
+var mapView = {
+    init: function() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: -33.8999386, lng: 151.1714448},
+            zoom: 15
+        });
+
+        // Create markers on map
+        for (i = 0; i < markers.length; i++) {
+            new google.maps.Marker({
+                position: markers[i].position,
+                title: markers[i].title,
+                map: map
+            });
+        }
+    }
+};
+
 
 /**********************
  *START APP
  **********************/
 function startApp() {
-    initMap();
+    mapViewModel.init();
 }
