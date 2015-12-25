@@ -1,0 +1,5 @@
+$ cat .gitignore
+
+# Files and Folders to Ignore
+.DS_Store
+node_modules/
