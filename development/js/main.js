@@ -97,7 +97,7 @@ var mapView = {
         // Create infoWindow
         var infowindow = new google.maps.InfoWindow();
 
-        // Create markers on the page and attach infowindow
+        // Create markers on the page and attach infoWindow
         for (i = 0; i < markers.length; i++) {
             var marker = new google.maps.Marker({
                 position: markers[i].position,
