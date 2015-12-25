@@ -103,6 +103,7 @@ var mapView = {
                 position: markers[i].position,
                 title: markers[i].title,
                 info: markers[i].info,
+                icon: 'img/map-marker.svg',
                 map: map
             });
 
