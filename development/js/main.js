@@ -122,8 +122,28 @@ var mapView = {
 };
 
 /**********************
+ *SIDEBAR
+ **********************/
+function ViewModel() {
+    // Map 'self' to ViewModel
+    var self = this;
+
+    // Create an obervable array of the places
+    this.placeList = ko.observableArray([]);
+
+    for (i = 0; i < markerModel.markers.length; i++) {
+        self.placeList.push(markerModel.markers[i]);
+    }
+
+};
+
+/**********************
  *START APP
  **********************/
 function startApp() {
+    // Set up map
     mapViewModel.init();
+
+    // Activate knockout.js
+    ko.applyBindings(new ViewModel());
 }
