@@ -4,14 +4,8 @@ module.exports = function(grunt) {
         autoprefixer:{
             dist:{
                 files:{
-                    'css/style.css':'../production/css/style.css'
+                    'css/main.css':'../production/css/main.css'
                 }
-            }
-        },
-        concat: {
-            dist: {
-                src: 'js/mvvm-build/*.js',
-                dest: 'js/main.js',
             }
         },
         uglify: {
@@ -32,8 +26,7 @@ module.exports = function(grunt) {
     /* CSS Tasks */
     grunt.loadNpmTasks('grunt-autoprefixer');
     /* JS Tasks */
-    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     /* Default Task */
-    grunt.registerTask('default', ['autoprefixer', 'concat', 'uglify']);
+    grunt.registerTask('default', ['autoprefixer', 'uglify']);
 }
