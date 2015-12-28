@@ -123,6 +123,10 @@ function ViewModel() {
         self.placeList.push(markerModel.markers[i]);
     }
 
+    this.openInfoWindow = function() {
+        // How can I link up my <li> with the right marker?
+    }
+
 };
 
 /**********************
