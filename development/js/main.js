@@ -166,7 +166,7 @@ function ViewModel() {
                 self.placeList.push(self.markers[i]);
             }
         }
-    }
+    };
 
     this.query.subscribe(this.search);
 
