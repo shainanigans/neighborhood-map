@@ -136,6 +136,8 @@ function ViewModel() {
         mapView.infowindow.open(map, mapView.markers[this.index]);
     }
 
+    // Track the current place
+    this.currentPlace = ko.observable('');
 };
 
 /**********************
