@@ -83,7 +83,7 @@ input[type=search] {
 .section__blue {
     background-color: rgba(79,147,232,.8);
 }
-.visible {
+.list-container {
     display: none;
 }
 .sidenav {

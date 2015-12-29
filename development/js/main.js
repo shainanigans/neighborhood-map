@@ -143,7 +143,7 @@ function ViewModel() {
 
     // Show list when button clicked on mobile
     $('#view-list').click(function() {
-        $('.list-container').toggleClass('visible');
+        $('.list-container').toggle();
     });
 
     // Create an obervable array of the places
