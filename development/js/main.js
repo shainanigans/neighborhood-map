@@ -70,7 +70,7 @@ var mapViewModel = {
     },
 
     getMarkers: function() {
-      return markerModel.markers;
+        return markerModel.markers;
     },
 
     getHTMLList: function() {
