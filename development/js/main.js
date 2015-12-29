@@ -143,7 +143,13 @@ function ViewModel() {
 
     // Show list when button clicked on mobile
     $('#view-list').click(function() {
+
         $('.list-container').toggle();
+
+        $(this).text(function(i, text){
+            return text === "View List" ? "View Map" : "View List";
+        });
+
     });
 
     // Create an obervable array of the places
