@@ -6,6 +6,7 @@ var map;
 // Marker Model
 var markerModel = {
     currentMarker: null,
+
     markers: [
         {
             title: 'Golden Lotus',
@@ -55,7 +56,14 @@ var markerModel = {
             title: 'Superfood Sushi',
             position: {lat: -33.89259, lng: 151.18548}
         }
-    ]
+    ],
+
+    setIndex: function() {
+        // Set an index for each item, to be used on list clicks
+        for (i = 0; i < markerModel.markers.length; i++) {
+            markerModel.markers[i].index = i;
+        }
+    }
 };
 
 var mapViewModel = {
@@ -79,31 +87,33 @@ var mapView = {
             zoom: 15
         });
 
+        var self = this;
+
         // Get the markers
-        var markers = mapViewModel.getMarkers();
+        this.markers = mapViewModel.getMarkers();
 
         // Create infoWindow
-        var infowindow = new google.maps.InfoWindow();
+        this.infowindow = new google.maps.InfoWindow();
 
         // Create markers on the page and attach infoWindow
-        for (i = 0; i < markers.length; i++) {
-            var marker = new google.maps.Marker({
-                position: markers[i].position,
-                title: markers[i].title,
-                info: '<h3>' + markers[i].title + '</h3>' + '<div id="info"></div>',
+        for (i = 0; i < this.markers.length; i++) {
+            this.markers[i] = new google.maps.Marker({
+                position: this.markers[i].position,
+                title: this.markers[i].title,
+                info: '<h3>' + this.markers[i].title + '</h3>' + '<div id="info"></div>',
                 icon: 'img/map-marker.svg',
                 map: map
             });
 
-            google.maps.event.addListener(marker, 'click', function(e) {
-                infowindow.setContent(this.info);
-                infowindow.open(map, this);
+            google.maps.event.addListener(this.markers[i], 'click', function(e) {
+                self.infowindow.setContent(this.info);
+                self.infowindow.open(map, this);
             });
         }
 
         // Close infoWindow when map clicked
         google.maps.event.addListener(map, 'click', function(e) {
-            infowindow.close();
+            self.infowindow.close();
         });
 
     }
@@ -123,8 +133,14 @@ function ViewModel() {
         self.placeList.push(markerModel.markers[i]);
     }
 
+    // Set the index of the list items
+    markerModel.setIndex();
+
+    // Open the info window when the correct list item is clicked
     this.openInfoWindow = function() {
-        // How can I link up my <li> with the right marker?
+        mapView.infowindow.setContent(mapView.markers[this.index].info);
+        mapView.infowindow.open(map, mapView.markers[this.index]);
+
     }
 
 };
