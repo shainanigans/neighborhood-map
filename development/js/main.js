@@ -141,6 +141,11 @@ function ViewModel() {
     // Map 'self' to ViewModel
     var self = this;
 
+    // Show list when button clicked on mobile
+    $('#view-list').click(function() {
+        $('.list-container').toggleClass('visible');
+    });
+
     // Create an obervable array of the places
     this.placeList = ko.observableArray([]);
 

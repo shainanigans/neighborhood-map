@@ -31,8 +31,9 @@
             <div id="sidebar" class="sidebar">
                 <div class="section__black">
                     <h1>A Vegan Foodie's Guide to Newtown, Sydney</h1>
+                    <button id="view-list" class="mobile">View List</button>
                 </div>
-                <div class="section__blue">
+                <div class="list-container visible section__blue">
                     <input class="search" placeholder="Search..." type="search" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
                     <ul id="place-list" class="sidenav" data-bind="foreach: placeList">
                         <li class="nav-item" data-bind="text: title, click: $parent.currentPlace, event: {click: $parent.openInfoWindow}, css: {'nav-item--active': $parent.currentPlace() === $data }"></li>

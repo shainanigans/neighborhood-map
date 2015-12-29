@@ -16,6 +16,21 @@ h2,
 h3 {
     font-weight: normal;
 }
+button {
+    background-color: rgba(255,255,255,0.0);
+    margin-top: 1em;
+    padding: 1em;
+    text-transform: uppercase;
+    font-size: .9em;
+    border: 2px solid #ffffff;
+}
+button:hover {
+    color: rgba(79,147,232,0.9);
+    border-color: rgba(79,147,232,0.9);
+}
+button:focus {
+    outline: none;
+}
 input {
     color: #000000;
     font-size: .9em;
@@ -69,6 +84,9 @@ input[type=search] {
 .section__blue {
     background-color: rgba(79,147,232,.8);
 }
+.visible {
+    display: none;
+}
 .sidenav {
     margin-bottom: 0;
     padding: 0;
@@ -105,8 +123,14 @@ input[type=search] {
  *MEDIA QUERIES
  **********************/
 @media screen and (min-width: 600px) {
+    .mobile {
+        display: none;
+    }
     .sidebar {
         width: 50%;
+    }
+    .list-container {
+        display: block;
     }
 }
 @media screen and (min-width: 768px) {
