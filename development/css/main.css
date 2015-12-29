@@ -62,7 +62,7 @@ h3 {
     list-style: none;
 }
 .nav-item {
-    padding: 1.5em 0;
+    padding: 1.5em .3em;
     border-bottom: 1px solid #a4c4ec;
 }
 .nav-item:first-child {
