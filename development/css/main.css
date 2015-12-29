@@ -7,7 +7,7 @@
 html,
 body {
     height: 100%;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Allerta', sans-serif;
 }
 h1,
 h2,
@@ -19,33 +19,47 @@ h3 {
  *LAYOUT
  **********************/
 .wrapper {
+    position: relative;
     height: 100%;
 }
 
 /**********************
  *MODULES
  **********************/
+.map-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
 .map {
     height: 100%;
 }
 .sidebar {
-    position: fixed;
+    position: absolute;
     width: 100%;
     height: 100%;
     color: #ffffff;
+    text-transform: uppercase;
     z-index: 99;
 }
 .sidebar [class*='section']:last-of-type {
-    height: 100%;
+    min-height: 100%;
 }
 [class*='section'] {
-    padding: 2em;
+    padding: 3em;
 }
 .section__black {
     background-color: rgba(0,0,0,.8);
 }
 .section__blue {
     background-color: rgba(79,147,232,.8);
+}
+.sidenav {
+    padding: 0;
+    list-style: none;
+}
+.sidenav li {
+    margin: 0 0 .5em;
 }
 
 /**********************

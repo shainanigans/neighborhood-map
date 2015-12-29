@@ -15,10 +15,10 @@
 
         <style>
             @font-face {
-                font-family: 'Roboto';
+                font-family: 'Allerta';
                 font-style: normal;
                 font-weight: 400;
-                src: local('Roboto'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v15/oMMgfZMQthOryQo9n22dcuvvDin1pK8aKteLpeZ5c0A.woff2) format('woff2');
+                src: local('Allerta Regular'), local('Allerta-Regular'), url(https://fonts.gstatic.com/s/allerta/v7/u8DhtLr8_kF32qKQjYheCwLUuEpTyoUstqEm5AMlJo4.woff2) format('woff2');
                 unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
             }
         </style>
@@ -33,12 +33,14 @@
                     <h1>A Vegan Foodie's Guide to Newtown, Sydney</h1>
                 </div>
                 <div class="section__blue">
-                    <ul id="place-list" data-bind="foreach: placeList">
+                    <ul id="place-list" class="sidenav" data-bind="foreach: placeList">
                         <li data-bind="text: title, click: $parent.openInfoWindow"></li>
                     </ul>
                 </div>
             </div>
-            <div id="map" class="map"></div>
+            <div class="map-container">
+                <div id="map" class="map"></div>
+            </div>
         </div> <!-- .wrapper -->
 
         <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnrqbv18zlr1FKSdPER-TmtSYHjL1ndY0&callback=startApp"></script>
