@@ -107,6 +107,12 @@ var mapView = {
                 self.infowindow.setContent(this.info);
                 self.infowindow.open(map, this);
 
+                // Assign value of this for use with marker animation
+                var that = this;
+
+                // Animate marker
+                self.animateMarker(that);
+
                 // Set active class for currently selected place
                 var htmlLinks = mapViewModel.getHTMLList();
                 $('.nav-item--active').removeClass('nav-item--active');
@@ -118,7 +124,13 @@ var mapView = {
         google.maps.event.addListener(map, 'click', function(e) {
             self.infowindow.close();
         });
+    },
 
+    animateMarker: function(marker) {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function(){
+                marker.setAnimation(null);
+            }, 2140);
     }
 };
 
@@ -143,6 +155,8 @@ function ViewModel() {
     this.openInfoWindow = function() {
         mapView.infowindow.setContent(mapView.markers[this.index].info);
         mapView.infowindow.open(map, mapView.markers[this.index]);
+
+        mapView.animateMarker(mapView.markers[this.index]);
     };
 
     // Track the current place
@@ -169,7 +183,6 @@ function ViewModel() {
     };
 
     this.query.subscribe(this.search);
-
 };
 
 /**********************
