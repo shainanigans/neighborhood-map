@@ -5,8 +5,6 @@ var map;
 
 // Marker Model
 var markerModel = {
-    currentMarker: null,
-
     markers: [
         {
             title: 'Golden Lotus',
@@ -73,10 +71,6 @@ var mapViewModel = {
 
     getMarkers: function() {
       return markerModel.markers;
-    },
-
-    getCurrentMarker: function() {
-        return markerModel.currentMarker;
     }
 };
 
@@ -140,7 +134,6 @@ function ViewModel() {
     this.openInfoWindow = function() {
         mapView.infowindow.setContent(mapView.markers[this.index].info);
         mapView.infowindow.open(map, mapView.markers[this.index]);
-
     }
 
 };
