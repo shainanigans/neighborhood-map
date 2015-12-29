@@ -147,9 +147,17 @@ function ViewModel() {
         $('.list-container').toggle();
 
         $(this).text(function(i, text){
-            return text === "View List" ? "View Map" : "View List";
+            return text === 'View List' ? 'Hide List' : 'View List';
         });
 
+    });
+
+    $(window).resize(function() {
+        if (window.outerWidth < 600) {
+            $('#view-list').text('View List');
+        } else {
+            $('.list-container').show();
+        }
     });
 
     // Create an obervable array of the places
