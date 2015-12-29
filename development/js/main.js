@@ -71,6 +71,10 @@ var mapViewModel = {
 
     getMarkers: function() {
       return markerModel.markers;
+    },
+
+    getHTMLList: function() {
+        return document.getElementsByClassName('nav-item');
     }
 };
 
@@ -102,6 +106,11 @@ var mapView = {
             google.maps.event.addListener(this.markers[i], 'click', function(e) {
                 self.infowindow.setContent(this.info);
                 self.infowindow.open(map, this);
+
+                // Set active class for currently selected place
+                var htmlLinks = mapViewModel.getHTMLList();
+                $('.nav-item--active').removeClass('nav-item--active');
+                $(htmlLinks[this.index]).addClass('nav-item--active');
             });
         }
 
@@ -138,6 +147,7 @@ function ViewModel() {
 
     // Track the current place
     this.currentPlace = ko.observable('');
+
 };
 
 /**********************
