@@ -148,6 +148,28 @@ function ViewModel() {
     // Track the current place
     this.currentPlace = ko.observable('');
 
+    // Create an observable for the search query
+    this.query = ko.observable('');
+
+    // Get the markers for the search function
+    this.markers = mapViewModel.getMarkers();
+
+    // Search function
+    // Live search method from opensoul.org/2011/06/23/live-search-with-knockoutjs/
+    this.search = function(value) {
+        // Remove all current locations from the search
+        self.placeList.removeAll();
+
+        // Add locations back into the array as they are found
+        for (i = 0; i < self.markers.length; i++) {
+            if(self.markers[i].title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                self.placeList.push(self.markers[i]);
+            }
+        }
+    }
+
+    this.query.subscribe(this.search);
+
 };
 
 /**********************
