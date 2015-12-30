@@ -152,12 +152,22 @@ function ViewModel() {
 
     });
 
+    // Hide and show list when switching between mobile and desktop
+    isMobileView = window.outerWidth < 600;
+
     $(window).resize(function() {
-        if (window.outerWidth < 600) {
+        var newViewIsMobileView = window.outerWidth < 600;
+
+        if (!isMobileView && newViewIsMobileView) {
+            $('.list-container').hide();
             $('#view-list').text('View List');
-        } else {
+        }
+
+        if (isMobileView && !newViewIsMobileView) {
             $('.list-container').show();
         }
+
+        isMobileView = newViewIsMobileView;
     });
 
     // Create an obervable array of the places
