@@ -28,6 +28,7 @@
     <body>
 
         <div class="wrapper">
+            <div id="map-error" class="error banner-message"></div>
             <div id="sidebar" class="sidebar">
                 <div class="section__black">
                     <h1>A Vegan Foodie's Guide to Newtown, Sydney</h1>
@@ -45,7 +46,8 @@
             </div>
         </div> <!-- .wrapper -->
 
-        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnrqbv18zlr1FKSdPER-TmtSYHjL1ndY0&callback=startApp"></script>
+        <script src="js/error.js"></script>
+        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnrqbv18zlr1FKSdPER-TmtSYHjL1ndY0&callback=startApp" onerror="mapError()"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/knockout/dist/knockout.js"></script>

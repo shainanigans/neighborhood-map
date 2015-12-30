@@ -109,6 +109,15 @@ input[type=search] {
     cursor: pointer;
     background-color: rgba(79,147,232,.9);
 }
+.error {
+    display: none;
+    color: #bc152c;
+}
+.banner-message {
+    background-color: rgba(188,21,44,0.9);
+    padding: 1em 2em;
+    color: #ffffff;
+}
 
 /**********************
  *STATE
