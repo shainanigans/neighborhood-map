@@ -202,18 +202,20 @@ function ViewModel() {
     this.search = function(value) {
         // Remove all current locations from the search
         self.placeList.removeAll();
+        mapView.infowindow.close();
 
         // Add locations back into the array as they are found
         for (i = 0; i < self.markers.length; i++) {
-            // Hide all of the markers
-            mapView.markers[i].setVisible(false);
 
             if (self.markers[i].title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-                // Re-add the list locations
+                // Re-add the list location
                 self.placeList.push(self.markers[i]);
 
-                // Show the markers
+                // Show the marker
                 mapView.markers[i].setVisible(true);
+            } else {
+                // Hide the marker
+                mapView.markers[i].setVisible(false);
             }
         }
     };
