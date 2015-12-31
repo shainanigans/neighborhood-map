@@ -208,13 +208,12 @@ function ViewModel() {
             // Hide all of the markers
             mapView.markers[i].setVisible(false);
 
-            if(self.markers[i].title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+            if (self.markers[i].title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
                 // Re-add the list locations
                 self.placeList.push(self.markers[i]);
 
                 // Show the markers
                 mapView.markers[i].setVisible(true);
-
             }
         }
     };
