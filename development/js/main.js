@@ -178,7 +178,6 @@ var mapView = {
             'dataType': 'jsonp',
             'jsonpCallback': 'cb',
             'success': function(data) {
-
                 // Append to info div in infowindow
                 var image = data.businesses[0].image_url;
                 var url = data.businesses[0].url;
@@ -186,14 +185,19 @@ var mapView = {
                 var ratingImage = data.businesses[0].rating_img_url;
                 var reviewCount = data.businesses[0].review_count;
                 var reviewSnippet = data.businesses[0].snippet_text;
+                var formattedInfo;
 
-                var formattedInfo =
-                    '<img class="info-image" src="' + image + '" alt="Photo from ' + place.title + '">' +
-                    '<img class="rating" src="' + ratingImage + '" alt="' + rating + ' star rating on Yelp">' +
-                    '<p class="review-count">out of ' + reviewCount + ' reviews</p>' +
-                    '<p class="snippet">' + reviewSnippet + '<a href="' + url + '" target="_blank">Read more</a></p>'
-                ;
-                
+                if (reviewCount > 0) {
+                    formattedInfo =
+                        '<img class="info-image" src="' + image + '" alt="Photo from ' + place.title + '">' +
+                        '<img class="rating" src="' + ratingImage + '" alt="' + rating + ' star rating on Yelp">' +
+                        '<p class="review-count">out of ' + reviewCount + ' reviews</p>' +
+                        '<p class="snippet">' + reviewSnippet + '<a href="' + url + '" target="_blank">Read more</a></p>'
+                    ;
+                } else {
+                    formattedInfo = '<p>Unfortunately there are no Yelp reviews for this listing. If you\'ve been there, why don\'t you <a href="' + url + '" target="_blank">write one</a>?</p>';
+                }
+
                 $('#info').append(formattedInfo);
             }
         });
