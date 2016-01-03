@@ -107,6 +107,9 @@ var mapView = {
                 self.infowindow.setContent(this.info);
                 self.infowindow.open(map, this);
 
+                // Add Yelp info to infowindow
+                self.getYelp(this);
+
                 // Assign value of this for use with marker animation
                 var that = this;
 
@@ -131,6 +134,69 @@ var mapView = {
             setTimeout(function(){
                 marker.setAnimation(null);
             }, 2140);
+    },
+
+    getYelp: function(place) {
+        var auth = {
+            consumerKey : "GIdnV7AA9LNrjdgxijDWug",
+            consumerSecret : "h8S9YHpC0tuHtpWsnA5HXbapGZk",
+            accessToken : "_TF1GDa2ulcE48qsFoBNefXszmtqmT5A",
+            accessTokenSecret : "0I3ygsXN3MA7X3CXD_TSnwCPEPs",
+            serviceProvider : {
+                signatureMethod : "HMAC-SHA1"
+            }
+        };
+
+        var accessor = {
+            consumerSecret : auth.consumerSecret,
+            tokenSecret : auth.accessTokenSecret
+        };
+
+        parameters = [];
+        parameters.push(['term', place.title]);
+        parameters.push(['location', 'Sydney']);
+        parameters.push(['callback', 'cb']);
+        parameters.push(['oauth_consumer_key', auth.consumerKey]);
+        parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
+        parameters.push(['oauth_token', auth.accessToken]);
+        parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
+        var message = {
+            'action' : 'http://api.yelp.com/v2/search',
+            'method' : 'GET',
+            'parameters' : parameters
+        };
+
+        OAuth.setTimestampAndNonce(message);
+        OAuth.SignatureMethod.sign(message, accessor);
+        var parameterMap = OAuth.getParameterMap(message.parameters);
+        parameterMap.oauth_signature = OAuth.percentEncode(parameterMap.oauth_signature);
+
+        $.ajax({
+            'url': message.action,
+            'data': parameterMap,
+            'cache': true,
+            'dataType': 'jsonp',
+            'jsonpCallback': 'cb',
+            'success': function(data) {
+
+                // Append to info div in infowindow
+                var image = data.businesses[0].image_url;
+                var url = data.businesses[0].url;
+                var rating = data.businesses[0].rating;
+                var ratingImage = data.businesses[0].rating_img_url;
+                var reviewCount = data.businesses[0].review_count;
+                var reviewSnippet = data.businesses[0].snippet_text;
+
+                var formattedInfo =
+                    '<img class="info-image" src="' + image + '" alt="Photo from ' + place.title + '">' +
+                    '<img class="rating" src="' + ratingImage + '" alt="' + rating + ' star rating on Yelp">' +
+                    '<p class="review-count">out of ' + reviewCount + ' reviews</p>' +
+                    '<p class="snippet">' + reviewSnippet + '<a href="' + url + '" target="_blank">Read more</a></p>'
+                ;
+                
+                $('#info').append(formattedInfo);
+            }
+        });
     }
 };
 
