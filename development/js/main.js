@@ -145,13 +145,16 @@ var mapView = {
     },
 
     getYelp: function(place) {
+        // Get keys
+        //require('keys.js');
+
         var auth = {
-            consumerKey : "GIdnV7AA9LNrjdgxijDWug",
-            consumerSecret : "h8S9YHpC0tuHtpWsnA5HXbapGZk",
-            accessToken : "_TF1GDa2ulcE48qsFoBNefXszmtqmT5A",
-            accessTokenSecret : "0I3ygsXN3MA7X3CXD_TSnwCPEPs",
+            consumerKey : 'GIdnV7AA9LNrjdgxijDWug',
+            consumerSecret : secretKeys.yelpConsumerSecret,
+            accessToken : '_TF1GDa2ulcE48qsFoBNefXszmtqmT5A',
+            accessTokenSecret : secretKeys.yelpAccessTokenSecret,
             serviceProvider : {
-                signatureMethod : "HMAC-SHA1"
+                signatureMethod : 'HMAC-SHA1'
             }
         };
 
