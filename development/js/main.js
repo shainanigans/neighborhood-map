@@ -91,14 +91,22 @@ var mapView = {
         this.markers = mapViewModel.getMarkers();
 
         // Create infoWindow
-        this.infowindow = new google.maps.InfoWindow();
+        this.infowindow = new google.maps.InfoWindow({
+            maxWidth: 300
+        });
 
         // Create markers on the page and attach infoWindow
         for (i = 0; i < this.markers.length; i++) {
             this.markers[i] = new google.maps.Marker({
                 position: this.markers[i].position,
                 title: this.markers[i].title,
-                info: '<h3>' + this.markers[i].title + '</h3>' + '<div id="info"></div>',
+                info:
+                    '<h3>' + this.markers[i].title + '</h3>' +
+                    '<div id="info">' +
+                        '<div id="yelp">' +
+                            '<img class="logo" srcset="img/yelp/yelp-logo-xsmall.png 1x, img/yelp/yelp-logo-xsmall@2x.png 2x" src="img/yelp/yelp-logo-xsmall.png" alt="Yelp logo">' +
+                        '</div>' +
+                    '</div>',
                 icon: 'img/map-marker.svg',
                 map: map
             });
@@ -178,7 +186,7 @@ var mapView = {
             'dataType': 'jsonp',
             'jsonpCallback': 'cb',
             'success': function(data) {
-                // Append to info div in infowindow
+                // Append to Yelp section of info div in infowindow
                 var image = data.businesses[0].image_url;
                 var url = data.businesses[0].url;
                 var rating = data.businesses[0].rating;
@@ -198,7 +206,7 @@ var mapView = {
                     formattedInfo = '<p>Unfortunately there are no Yelp reviews for this listing. If you\'ve been there, why don\'t you <a href="' + url + '" target="_blank">write one</a>?</p>';
                 }
 
-                $('#info').append(formattedInfo);
+                $('#yelp').append(formattedInfo);
             }
         });
     }

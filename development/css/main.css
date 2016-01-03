@@ -16,6 +16,10 @@ h2,
 h3 {
     font-weight: normal;
 }
+a {
+    color: rgba(79,147,232,1.0);
+    text-decoration: none;
+}
 button {
     background-color: rgba(255,255,255,0.0);
     margin-top: 1em;
@@ -62,6 +66,23 @@ input[type=search] {
 }
 .map {
     height: 100%;
+}
+.logo {
+    display: block;
+    margin-bottom: 1em;
+}
+.info-image {
+    float: left;
+    margin-right: 1em;
+}
+.review-count {
+    margin-top: 0;
+    font-size: 90%;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.snippet {
+    font-size: 1em;
 }
 .sidebar {
     position: absolute;
