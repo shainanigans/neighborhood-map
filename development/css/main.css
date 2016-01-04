@@ -59,6 +59,9 @@ input[type=search] {
 /**********************
  *MODULES
  **********************/
+.title {
+    font-size: 1em;
+}
 .map-container {
     position: fixed;
     width: 100%;
@@ -154,6 +157,9 @@ input[type=search] {
 @media screen and (min-width: 600px) {
     .mobile {
         display: none;
+    }
+    .title {
+        font-size: 2em;
     }
     .sidebar {
         width: 50%;
