@@ -266,12 +266,19 @@ function ViewModel() {
     // Set the index of the list items
     markerModel.setIndex();
 
-    // Open the info window when the correct list item is clicked
-    this.openInfoWindow = function() {
+    // This function runs when list item clicked
+    this.selectPlace = function() {
+        // Open the info window when the correct list item is clicked
         mapView.infowindow.setContent(mapView.markers[this.index].info);
         mapView.infowindow.open(map, mapView.markers[this.index]);
 
         mapView.animateMarker(mapView.markers[this.index]);
+
+        // Hide the list on mobile devices
+        if (isMobileView) {
+            $('.list-container').hide();
+            $('#view-list').text('View List');
+        }
     };
 
     // Track the current place
