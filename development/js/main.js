@@ -3,56 +3,85 @@
  **********************/
 var map;
 
+// Tag Model
+var tagModel = {
+    asian: 'Asian',
+    japanese: 'Japanese',
+    thai: 'Thai',
+    cafe: 'Cafe',
+    chinese: 'Chinese',
+    yumCha: 'Yum Cha',
+    omnivoreFriendly: 'Omnivore-friendly',
+    italian: 'Italian',
+    pizza: 'Pizza',
+    multiCuisine: 'Multi-cusisine',
+    vietnamese: 'Vietnamese',
+    desserts: 'Desserts',
+    fishAndChips: 'Fish & Chips'
+};
+
 // Marker Model
 var markerModel = {
     markers: [
         {
             title: 'Golden Lotus',
-            position: {lat: -33.89840, lng: 151.17817}
+            position: {lat: -33.89840, lng: 151.17817},
+            tags: [tagModel.vietnamese, tagModel.asian]
         },
         {
             title: 'Gigi\'s Pizzeria',
-            position: {lat: -33.89925, lng: 151.17759}
+            position: {lat: -33.89925, lng: 151.17759},
+            tags: [tagModel.pizza, tagModel.asian]
         },
         {
             title: 'Suzy Spoon\'s Vegetarian Butcher',
-            position: {lat: -33.89261, lng: 151.18687}
+            position: {lat: -33.89261, lng: 151.18687},
+            tags: [tagModel.cafe]
         },
         {
             title: 'Gelato Blue',
-            position: {lat: -33.89734, lng: 151.17945}
+            position: {lat: -33.89734, lng: 151.17945},
+            tags: [tagModel.desserts, tagModel.omnivoreFriendly]
         },
         {
             title: 'Bliss & Chips',
-            position: {lat: -33.89492, lng: 151.18170}
+            position: {lat: -33.89492, lng: 151.18170},
+            tags: [tagModel.fishAndChips]
         },
         {
             title: 'Vina',
-            position: {lat: -33.89976, lng: 151.17767}
+            position: {lat: -33.89976, lng: 151.17767},
+            tags: [tagModel.vietnamese, tagModel.asian]
         },
         {
             title: 'Lentil As Anything',
-            position: {lat: -33.89966, lng: 151.17764}
+            position: {lat: -33.89966, lng: 151.17764},
+            tags: [tagModel.multiCuisine]
         },
         {
             title: 'Basil Pizza & Pasta',
-            position: {lat: -33.89343, lng: 151.18405}
+            position: {lat: -33.89343, lng: 151.18405},
+            tags: [tagModel.italian, tagModel.pizza, tagModel.omnivoreFriendly]
         },
         {
             title: 'Newtown Pies',
-            position: {lat: -33.89633, lng: 151.17984}
+            position: {lat: -33.89633, lng: 151.17984},
+            tags: [tagModel.cafe, tagModel.omnivoreFriendly]
         },
         {
             title: 'Blossoming Lotus',
-            position: {lat: -33.89449, lng: 151.18281}
+            position: {lat: -33.89449, lng: 151.18281},
+            tags: [tagModel.asian, tagModel.thai]
         },
         {
             title: 'Green Gourmet',
-            position: {lat: -33.89312, lng: 151.18421}
+            position: {lat: -33.89312, lng: 151.18421},
+            tags: [tagModel.asian, this.tagModel.chinese, tagModel.yumCha]
         },
         {
             title: 'Superfood Sushi',
-            position: {lat: -33.89259, lng: 151.18548}
+            position: {lat: -33.89259, lng: 151.18548},
+            tags: [tagModel.asian, tagModel.japanese]
         }
     ],
 
@@ -75,6 +104,20 @@ var mapViewModel = {
 
     getHTMLList: function() {
         return document.getElementsByClassName('nav-item');
+    },
+
+    getTags: function() {
+        var tags = [];
+
+        for (var key in tagModel) {
+            if (Object.prototype.hasOwnProperty.call(tagModel, key)) {
+                var val = tagModel[key];
+
+                tags.push(val);
+            }
+        }
+
+        return tags;
     }
 };
 
@@ -108,6 +151,7 @@ var mapView = {
                         '</div>' +
                     '</div>',
                 icon: 'img/map-marker.svg',
+                tags: this.markers[i].tags,
                 map: map
             });
 
@@ -125,7 +169,7 @@ var mapView = {
                 var that = this;
 
                 // Animate marker
-                self.animateMarker(that);
+                self.makeActiveMarker(that);
 
                 // Set active class for currently selected place
                 var htmlLinks = mapViewModel.getHTMLList();
@@ -140,11 +184,15 @@ var mapView = {
         });
     },
 
-    animateMarker: function(marker) {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-            setTimeout(function(){
-                marker.setAnimation(null);
-            }, 2140);
+    makeActiveMarker: function(marker) {
+        // Animate marker
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function(){
+            marker.setAnimation(null);
+        }, 2140);
+
+        // Changer marker icon
+        marker.icon = 'img/map-marker-active.svg';
     },
 
     // Offset the map so it's not hidden by the overlay
@@ -285,13 +333,17 @@ function ViewModel() {
     // Set the index of the list items
     markerModel.setIndex();
 
+    // Create list of tags
+    var tags = mapViewModel.getTags();
+    console.log(tags);
+
     // This function runs when list item clicked
     this.selectPlace = function() {
         // Open the info window when the correct list item is clicked
         mapView.infowindow.setContent(mapView.markers[this.index].info);
         mapView.infowindow.open(map, mapView.markers[this.index]);
 
-        mapView.animateMarker(mapView.markers[this.index]);
+        mapView.makeActiveMarker(mapView.markers[this.index]);
 
         mapView.getYelp(mapView.markers[this.index]);
 
