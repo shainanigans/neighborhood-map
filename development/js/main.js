@@ -304,6 +304,9 @@ function ViewModel() {
                 mapView.markers[i].setVisible(false);
             }
         }
+
+        // Remove the active class during and after search
+        $('.nav-item--active').removeClass('nav-item--active');
     };
 
     this.query.subscribe(this.search);
