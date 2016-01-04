@@ -150,9 +150,11 @@ var mapView = {
 
         var auth = {
             consumerKey : 'GIdnV7AA9LNrjdgxijDWug',
-            consumerSecret : secretKeys.yelpConsumerSecret,
+            //consumerSecret : secretKeys.yelpConsumerSecret,
+            consumerSecret : 'h8S9YHpC0tuHtpWsnA5HXbapGZk',
             accessToken : '_TF1GDa2ulcE48qsFoBNefXszmtqmT5A',
-            accessTokenSecret : secretKeys.yelpAccessTokenSecret,
+            //accessTokenSecret : secretKeys.yelpAccessTokenSecret,
+            accessTokenSecret : '0I3ygsXN3MA7X3CXD_TSnwCPEPs',
             serviceProvider : {
                 signatureMethod : 'HMAC-SHA1'
             }
@@ -206,10 +208,13 @@ var mapView = {
                         '<p class="snippet">' + reviewSnippet + '<a href="' + url + '" target="_blank">Read more</a></p>'
                     ;
                 } else {
-                    formattedInfo = '<p>Unfortunately there are no Yelp reviews for this listing. If you\'ve been there, why don\'t you <a href="' + url + '" target="_blank">write one</a>?</p>';
+                    formattedInfo = '<p>Unfortunately there are no Yelp reviews for this listing. If you\'ve been here, why don\'t you <a href="' + url + '" target="_blank">write one</a>?</p>';
                 }
 
                 $('#yelp').append(formattedInfo);
+            },
+            'error': function(jqXHR, error) {
+                $('#yelp').append('<p>Something\'s gone wrong with our Yelp reviews. Please try again later.</p>');
             }
         });
     }
