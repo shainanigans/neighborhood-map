@@ -115,6 +115,9 @@ var mapView = {
                 self.infowindow.setContent(this.info);
                 self.infowindow.open(map, this);
 
+                // Offset map
+                self.offsetMap(this);
+
                 // Add Yelp info to infowindow
                 self.getYelp(this);
 
@@ -142,6 +145,22 @@ var mapView = {
             setTimeout(function(){
                 marker.setAnimation(null);
             }, 2140);
+    },
+
+    // Offset the map so it's not hidden by the overlay
+    offsetMap: function(marker) {
+        var latLng = marker.getPosition();
+        var windowHeight = window.innerHeight;
+        var windowWidth = window.innerWidth;
+        var overlayWidth = $('#sidebar').width();
+
+        if (isMobileView)  {
+            map.panTo(latLng);
+            map.panBy(0, (0 - windowHeight));
+        } else {
+            map.panTo(latLng);
+            map.panBy((0 - overlayWidth + this.infowindow.maxWidth/2), 0);
+        }
     },
 
     getYelp: function(place) {
@@ -274,11 +293,15 @@ function ViewModel() {
 
         mapView.animateMarker(mapView.markers[this.index]);
 
+        mapView.getYelp(mapView.markers[this.index]);
+
         // Hide the list on mobile devices
         if (isMobileView) {
             $('.list-container').hide();
             $('#view-list').text('View List');
         }
+
+        mapView.offsetMap(mapView.markers[this.index]);
     };
 
     // Track the current place
