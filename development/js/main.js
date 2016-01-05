@@ -116,6 +116,19 @@ var mapViewModel = {
     },
 
     getMarkers: function() {
+        // Alphabetise markers
+        function compare(a,b) {
+            if (a.title < b.title) {
+                return -1;
+            } else if (a.title > b.title) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+
+        markerModel.markers.sort(compare);
+
         return markerModel.markers;
     },
 
@@ -344,8 +357,10 @@ function ViewModel() {
         isMobileView = newViewIsMobileView;
     });
 
-    // Create an obervable array of the places
+    // Create the list of places for the sidebar
     this.markers = mapViewModel.getMarkers();
+
+    // Create an obervable array of the places
     this.placeList = ko.observableArray([]);
 
     this.makePlaceList = function() {
