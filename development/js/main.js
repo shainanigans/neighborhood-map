@@ -90,11 +90,11 @@ function startApp() {
         tabs: [
             {
                 title: 'Search',
-                content: '<input class="search" placeholder="Search..." type="search" data-bind="value: $root.query.bind($root), valueUpdate: \'keyup\'" autocomplete="off">'
+                content: '<input class="search" placeholder="Search..." type="search" data-bind="value: query, valueUpdate: \'keyup\'" autocomplete="off">'
             },
             {
                 title: 'Filter',
-                content: '<select class="filter" data-bind="options: $root.tagList.bind($root)"></select>'
+                content: '<select class="filter" data-bind="options: .tagList"></select>'
             }
         ]
     };
@@ -428,21 +428,18 @@ function startApp() {
 
         this.currentTab = ko.observable('');
 
-        this.showTabContent = function(tab) {
-            var i = self.tabList.indexOf(tab);
-            $('.tab-content').html('').append(tabs[i].content);
-
-            // Add back all the places and markers to the list if they've been filtered out
-            self.makePlaceList();
-
-            for (i = 0; i < mapView.markers.length; i++) {
-                mapView.markers[i].setVisible(true);
-            }
-        }
+        //this.showTabContent = function(tab) {
+        //    // Add back all the places and markers to the list if they've been filtered out
+        //    self.makePlaceList();
+        //
+        //    for (i = 0; i < mapView.markers.length; i++) {
+        //        mapView.markers[i].setVisible(true);
+        //    }
+        //}
 
         // Start the app with the first item active
         this.currentTab(tabs[0]);
-        this.showTabContent(tabs[0]);
+        //this.showTabContent(tabs[0]);
 
         // Create an observable array of the tags
         this.tagList = ko.observableArray([]);
