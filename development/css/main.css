@@ -35,10 +35,13 @@ button:hover {
 button:focus {
     outline: none;
 }
-input {
+input,
+select {
     color: #000000;
     font-size: .9em;
     text-transform: uppercase;
+    border: none;
+    border-radius: 0;
 }
 input:focus {
     outline: none;
@@ -48,6 +51,29 @@ input[type=search] {
     webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-padding-end: 20px;
+    -moz-padding-end: 20px;
+    -webkit-padding-start: 2px;
+    -moz-padding-start: 2px;
+    background: url('../img/select-arrows.svg') 98% center no-repeat #ffffff;
+    margin: 0;
+    padding: 1em .5em;
+    overflow: hidden;
+    color: #555555;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+select::-ms-expand {
+    display: none; /* for IE 11 */
+}
+
 /**********************
  *LAYOUT
  **********************/
@@ -110,6 +136,25 @@ input[type=search] {
 .list-container {
     display: none;
 }
+.tabs {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+}
+.tab-title {
+    background: rgba(255, 255, 255, 0.5);
+    width: 50%;
+    padding: 1em .5em;
+    color: #555555;
+    border-bottom: 1px solid #ffffff;
+}
+.tab-title:hover {
+    background: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+}
+.hidden-tab {
+    display: none;
+}
 .sidenav {
     margin-bottom: 0;
     padding: 0;
@@ -121,6 +166,10 @@ input[type=search] {
     margin-bottom: 1em;
     padding: 1em .5em;
     box-sizing: border-box;
+}
+.filter {
+    width: 100%;
+    margin-bottom: 1em;
 }
 .nav-item {
     padding: 1.5em .5em;
@@ -149,6 +198,13 @@ input[type=search] {
 .nav-item--active,
 .nav-item--active:hover {
     background-color: rgba(79,147,232,1.0);
+}
+
+.tab-title--active,
+.tab-title--active:hover {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ffffff;
+    border-bottom: 0;
 }
 
 /**********************

@@ -1,5 +1,5 @@
 /**********************
- *MAP
+ *MODELS
  **********************/
 var map;
 
@@ -93,6 +93,23 @@ var markerModel = {
     }
 };
 
+// TAB MODEL
+var tabModel = {
+    tabs: [
+        {
+            title: 'Search',
+            content: '<input class="search" placeholder="Search..." type="search" data-bind="value: $root.query.bind($root), valueUpdate: \'keyup\'" autocomplete="off">'
+        },
+        {
+            title: 'Filter',
+            content: '<select class="filter" data-bind="options: $root.tagList.bind($root)"></select>'
+        }
+    ]
+};
+
+/**********************
+ *MAP
+ **********************/
 var mapViewModel = {
     init: function() {
         mapView.init();
@@ -118,6 +135,10 @@ var mapViewModel = {
         }
 
         return tags;
+    },
+
+    getTabs: function() {
+        return tabModel.tabs;
     }
 };
 
@@ -323,19 +344,23 @@ function ViewModel() {
         isMobileView = newViewIsMobileView;
     });
 
-    // Create an obervable array of the places
+
     this.placeList = ko.observableArray([]);
 
-    for (i = 0; i < markerModel.markers.length; i++) {
-        self.placeList.push(markerModel.markers[i]);
-    }
+    // Create an obervable array of the places
+    this.makePlaceList = function() {
+        // Empty the array if there are items inside
+        this.placeList().length = 0;
+
+        // Create the array
+        for (i = 0; i < markerModel.markers.length; i++) {
+            self.placeList.push(markerModel.markers[i]);
+        }
+    };
+    this.makePlaceList();
 
     // Set the index of the list items
     markerModel.setIndex();
-
-    // Create list of tags
-    var tags = mapViewModel.getTags();
-    console.log(tags);
 
     // This function runs when list item clicked
     this.selectPlace = function() {
@@ -358,6 +383,36 @@ function ViewModel() {
 
     // Track the current place
     this.currentPlace = ko.observable('');
+
+    // Tabs for the search and filter
+    this.tabList = ko.observableArray([]);
+    var tabs = mapViewModel.getTabs();
+
+    for (i = 0; i < tabs.length; i++) {
+        self.tabList.push(tabs[i]);
+    }
+
+    this.currentTab = ko.observable('');
+
+    this.showTabContent = function(tab) {
+        var i = self.tabList.indexOf(tab);
+        $('.tab-content').html('').append(tabs[i].content);
+
+        // Add back all the places to the list if they've been filtered out
+        self.makePlaceList();
+    }
+
+    // Start the app with the first item active
+    this.currentTab(tabs[0]);
+    this.showTabContent(tabs[0]);
+
+    // Create an observable array of the tags
+    this.tagList = ko.observableArray([]);
+    var tags = mapViewModel.getTags();
+
+    for (i = 0; i < tags.length; i++) {
+        self.tagList.push(tags[i]);
+    }
 
     // Create an observable for the search query
     this.query = ko.observable('');
@@ -391,7 +446,7 @@ function ViewModel() {
         $('.nav-item--active').removeClass('nav-item--active');
     };
 
-    this.query.subscribe(this.search);
+    this.query.subscribe(self.search);
 };
 
 /**********************
