@@ -418,6 +418,9 @@ function ViewModel() {
         self.tagList.push(tags[i]);
     }
 
+    // Alphabetise the tags
+    tags.sort();
+
     // Create an observable for the search query
     this.query = ko.observable('');
 
