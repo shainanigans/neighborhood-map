@@ -2,8 +2,6 @@ function startApp() {
     /**********************
      *MODELS
      **********************/
-    var map;
-
     // Tag Model
     var tagModel = {
         asian: 'Asian',
@@ -111,6 +109,8 @@ function startApp() {
     /**********************
      *MAP
      **********************/
+    var map;
+    
     var mapViewModel = {
         init: function() {
             mapView.init();
