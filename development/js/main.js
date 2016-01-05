@@ -196,9 +196,6 @@ function startApp() {
                 });
 
                 google.maps.event.addListener(this.markers[i], 'click', function(e) {
-                    self.infowindow.setContent(this.info);
-                    self.infowindow.open(map, this);
-
                     // Offset map
                     self.offsetMap(this);
 
@@ -235,6 +232,10 @@ function startApp() {
 
             // Change selected marker icon to the active icon
             marker.icon = 'img/map-marker-active.svg';
+
+            // Open infowindow
+            this.infowindow.setContent(marker.info);
+            this.infowindow.open(map, marker);
         },
 
         isNotActiveMarker: function() {
@@ -399,10 +400,6 @@ function startApp() {
 
         // This function runs when list item clicked
         this.selectPlace = function() {
-            // Open the info window when the correct list item is clicked
-            mapView.infowindow.setContent(mapView.markers[this.index].info);
-            mapView.infowindow.open(map, mapView.markers[this.index]);
-
             // De-active previously active marker and make selected marker active
             mapView.isNotActiveMarker();
             mapView.isActiveMarker(mapView.markers[this.index]);
