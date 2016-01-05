@@ -398,8 +398,12 @@ function ViewModel() {
         var i = self.tabList.indexOf(tab);
         $('.tab-content').html('').append(tabs[i].content);
 
-        // Add back all the places to the list if they've been filtered out
+        // Add back all the places and markers to the list if they've been filtered out
         self.makePlaceList();
+        
+        for (i = 0; i < mapView.markers.length; i++) {
+            mapView.markers[i].setVisible(true);
+        }
     }
 
     // Start the app with the first item active
