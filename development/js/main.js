@@ -344,17 +344,17 @@ function ViewModel() {
         isMobileView = newViewIsMobileView;
     });
 
-
+    // Create an obervable array of the places
+    this.markers = mapViewModel.getMarkers();
     this.placeList = ko.observableArray([]);
 
-    // Create an obervable array of the places
     this.makePlaceList = function() {
         // Empty the array if there are items inside
         this.placeList().length = 0;
 
         // Create the array
-        for (i = 0; i < markerModel.markers.length; i++) {
-            self.placeList.push(markerModel.markers[i]);
+        for (i = 0; i < self.markers.length; i++) {
+            self.placeList.push(self.markers[i]);
         }
     };
     this.makePlaceList();
@@ -400,7 +400,7 @@ function ViewModel() {
 
         // Add back all the places and markers to the list if they've been filtered out
         self.makePlaceList();
-        
+
         for (i = 0; i < mapView.markers.length; i++) {
             mapView.markers[i].setVisible(true);
         }
@@ -420,9 +420,6 @@ function ViewModel() {
 
     // Create an observable for the search query
     this.query = ko.observable('');
-
-    // Get the markers for the search function
-    this.markers = mapViewModel.getMarkers();
 
     // Search function
     // Live search method from opensoul.org/2011/06/23/live-search-with-knockoutjs/
