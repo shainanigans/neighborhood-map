@@ -147,6 +147,9 @@ var mapViewModel = {
             }
         }
 
+        // Alphabetise the tags
+        tags.sort();
+
         return tags;
     },
 
@@ -432,9 +435,6 @@ function ViewModel() {
     for (i = 0; i < tags.length; i++) {
         self.tagList.push(tags[i]);
     }
-
-    // Alphabetise the tags
-    tags.sort();
 
     // Create an observable for the search query
     this.query = ko.observable('');
