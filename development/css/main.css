@@ -96,9 +96,14 @@ select::-ms-expand {
 .map {
     height: 100%;
 }
-.logo {
-    display: block;
-    margin-bottom: 1em;
+.logo-container {
+    background: #DCDCDC;
+    padding: .5em 1em;
+}
+.info {
+    background: #F7F7F7;
+    margin: 0 0 1em;
+    padding: 1em;
 }
 .info-image {
     float: left;

@@ -182,10 +182,12 @@ function startApp() {
                     position: this.markers[i].position,
                     title: this.markers[i].title,
                     info:
-                        '<h3>' + this.markers[i].title + '</h3>' +
+                        '<h2>' + this.markers[i].title + '</h2>' +
                         '<div id="info">' +
                             '<div id="yelp">' +
-                                '<img class="logo" srcset="img/yelp/yelp-logo-xsmall.png 1x, img/yelp/yelp-logo-xsmall@2x.png 2x" src="img/yelp/yelp-logo-xsmall.png" alt="Yelp logo">' +
+                                '<div class="logo-container">' +
+                                    '<img class="logo" srcset="img/yelp/yelp-logo-xsmall.png 1x, img/yelp/yelp-logo-xsmall@2x.png 2x" src="img/yelp/yelp-logo-xsmall.png" alt="Yelp logo">' +
+                                '</div>' +
                             '</div>' +
                         '</div>',
                     icon: 'img/map-marker.svg',
@@ -319,13 +321,15 @@ function startApp() {
 
                     if (reviewCount > 0) {
                         formattedInfo =
-                            '<img class="info-image" src="' + image + '" alt="Photo from ' + place.title + '">' +
-                            '<img class="rating" src="' + ratingImage + '" alt="' + rating + ' star rating on Yelp">' +
-                            '<p class="review-count">out of ' + reviewCount + ' reviews</p>' +
-                            '<p class="snippet">' + reviewSnippet + '<a href="' + url + '" target="_blank">Read more</a></p>'
+                            '<div class="info">' +
+                                '<img class="info-image" src="' + image + '" alt="Photo from ' + place.title + '">' +
+                                '<img class="rating" src="' + ratingImage + '" alt="' + rating + ' star rating on Yelp">' +
+                                '<p class="review-count">out of ' + reviewCount + ' reviews</p>' +
+                                '<p class="snippet">' + reviewSnippet + '<a href="' + url + '" target="_blank">Read more</a></p>' +
+                            '</div>'
                         ;
                     } else {
-                        formattedInfo = '<p>Unfortunately there are no Yelp reviews for this listing. If you\'ve been here, why don\'t you <a href="' + url + '" target="_blank">write one</a>?</p>';
+                        formattedInfo = '<p class="info">Unfortunately there are no Yelp reviews for this listing. If you\'ve been here, why don\'t you <a href="' + url + '" target="_blank">write one</a>?</p>';
                     }
 
                     $('#yelp').append(formattedInfo);
