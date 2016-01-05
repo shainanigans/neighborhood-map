@@ -203,11 +203,13 @@ function startApp() {
                     // Add Yelp info to infowindow
                     self.getYelp(this);
 
-                    // Assign value of this for use with marker animation
+                    // Assign value of this for use with active marker
                     var that = this;
+                    that.previousMarker = this;
 
-                    // Animate marker
-                    self.makeActiveMarker(that);
+                    // De-active previously active marker and make selected marker active
+                    self.isNotActiveMarker();
+                    self.isActiveMarker(that);
 
                     // Set active class for currently selected place
                     var htmlLinks = mapViewModel.getHTMLList();
@@ -222,15 +224,25 @@ function startApp() {
             });
         },
 
-        makeActiveMarker: function(marker) {
+        isActiveMarker: function(marker) {
             // Animate marker
             marker.setAnimation(google.maps.Animation.BOUNCE);
             setTimeout(function(){
                 marker.setAnimation(null);
             }, 2140);
 
-            // Changer marker icon
+            // Change selected marker icon to the active icon
             marker.icon = 'img/map-marker-active.svg';
+        },
+
+        isNotActiveMarker: function() {
+            for (j = 0; j < this.markers.length; j++) {
+                // Stop animation
+                this.markers[j].setAnimation(null);
+
+                // Set all other marker icons to the normal icon
+                this.markers[j].icon = 'img/map-marker.svg';
+            }
         },
 
         // Offset the map so it's not hidden by the overlay
@@ -387,7 +399,9 @@ function startApp() {
             mapView.infowindow.setContent(mapView.markers[this.index].info);
             mapView.infowindow.open(map, mapView.markers[this.index]);
 
-            mapView.makeActiveMarker(mapView.markers[this.index]);
+            // De-active previously active marker and make selected marker active
+            mapView.isNotActiveMarker();
+            mapView.isActiveMarker(mapView.markers[this.index]);
 
             mapView.getYelp(mapView.markers[this.index]);
 
