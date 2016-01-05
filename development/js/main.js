@@ -82,14 +82,7 @@ function startApp() {
                 position: {lat: -33.89259, lng: 151.18548},
                 tags: [tagModel.asian, tagModel.japanese]
             }
-        ],
-
-        setIndex: function() {
-            // Set an index for each item, to be used on list clicks
-            for (i = 0; i < markerModel.markers.length; i++) {
-                markerModel.markers[i].index = i;
-            }
-        }
+        ]
     };
 
     // TAB MODEL
@@ -110,7 +103,7 @@ function startApp() {
      *MAP
      **********************/
     var map;
-    
+
     var mapViewModel = {
         init: function() {
             mapView.init();
@@ -131,6 +124,13 @@ function startApp() {
             markerModel.markers.sort(compare);
 
             return markerModel.markers;
+        },
+
+        setIndex: function() {
+            // Set an index for each item, to be used on list clicks
+            for (i = 0; i < markerModel.markers.length; i++) {
+                markerModel.markers[i].index = i;
+            }
         },
 
         getHTMLList: function() {
@@ -379,7 +379,7 @@ function startApp() {
         this.makePlaceList();
 
         // Set the index of the list items
-        markerModel.setIndex();
+        mapViewModel.setIndex();
 
         // This function runs when list item clicked
         this.selectPlace = function() {
