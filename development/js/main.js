@@ -104,7 +104,7 @@ function startApp() {
      **********************/
     var map;
 
-    var mapViewModel = {
+    var modelController = {
         init: function() {
             mapView.init();
         },
@@ -169,7 +169,7 @@ function startApp() {
             var self = this;
 
             // Get the markers
-            this.markers = mapViewModel.getMarkers();
+            this.markers = modelController.getMarkers();
 
             // Create infoWindow
             this.infowindow = new google.maps.InfoWindow({
@@ -214,7 +214,7 @@ function startApp() {
                     self.isActiveMarker(that);
 
                     // Set active class for currently selected place
-                    var htmlLinks = mapViewModel.getHTMLList();
+                    var htmlLinks = modelController.getHTMLList();
                     $('.nav-item--active').removeClass('nav-item--active');
                     $(htmlLinks[this.index]).addClass('nav-item--active');
                 });
@@ -378,7 +378,7 @@ function startApp() {
         });
 
         // Create the list of places for the sidebar
-        this.markers = mapViewModel.getMarkers();
+        this.markers = modelController.getMarkers();
 
         // Create an obervable array of the places
         this.placeList = ko.observableArray([]);
@@ -395,7 +395,7 @@ function startApp() {
         this.makePlaceList();
 
         // Set the index of the list items
-        mapViewModel.setIndex();
+        modelController.setIndex();
 
         // This function runs when list item clicked
         this.selectPlace = function() {
@@ -423,7 +423,7 @@ function startApp() {
 
         // Tabs for the search and filter
         this.tabList = ko.observableArray([]);
-        var tabs = mapViewModel.getTabs();
+        var tabs = modelController.getTabs();
 
         for (i = 0; i < tabs.length; i++) {
             self.tabList.push(tabs[i]);
@@ -449,7 +449,7 @@ function startApp() {
 
         // Create an observable array of the tags
         this.tagList = ko.observableArray([]);
-        var tags = mapViewModel.getTags();
+        var tags = modelController.getTags();
 
         for (i = 0; i < tags.length; i++) {
             self.tagList.push(tags[i]);
@@ -488,7 +488,7 @@ function startApp() {
     };
 
     // Initalise map
-    mapViewModel.init();
+    modelController.init();
 
     // Activate knockout.js
     ko.applyBindings(new ViewModel());
