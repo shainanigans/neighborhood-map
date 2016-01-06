@@ -68,7 +68,7 @@ function startApp() {
                 tags: [tagModel.cafe, tagModel.omnivoreFriendly]
             },
             {
-                title: 'Blossoming Lotus',
+                title: 'Blossoming Lotus (Green Palace)',
                 position: {lat: -33.89449, lng: 151.18281},
                 tags: [tagModel.asian, tagModel.thai]
             },
@@ -357,8 +357,7 @@ function startApp() {
             // Use Nearby Search to get the Place ID
             service.nearbySearch({
                 location: mapView.newtown,
-                radius: 500,
-                types: ['store', 'restaurant', 'food'],
+                radius: 1000,
                 keyword: place.title,
             }, callback);
 
@@ -385,25 +384,29 @@ function startApp() {
                             stars = '<p class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>';
                         }
 
-                        formattedInfo =
-                            '<div class="info">' +
-                                stars +
-                                '<p class="review-count">out of ' + googlePlace.user_ratings_total + ' ratings</p>' +
-                                '<h4>Top Review:</h4>' +
-                                '<p class="snippet">' + googlePlace.reviews[0].text + '</p>' +
-                                '<p class="centered-element-container"><a class="button--source-link" href="' + googlePlace.url + '" target="_blank">Read more</a></p>' +
-                            '</div>' +
-                            '<div class="logo-container">' +
-                                '<img class="logo" srcset="img/google-places/powered_by_google_on_white.png 1x, img/google-places/powered_by_google_on_white@2x.png 2x" src="img/google-places/powered_by_google_on_white.png" alt="Powered by Google">' +
-                            '</div>'
-                        ;
+                        if (googlePlace.user_ratings_total > 0) {
+                            formattedInfo =
+                                '<div class="info">' +
+                                    stars +
+                                    '<p class="review-count">out of ' + googlePlace.user_ratings_total + ' ratings</p>' +
+                                    '<h4>Top Review:</h4>' +
+                                    '<p class="snippet">' + googlePlace.reviews[0].text + '</p>' +
+                                    '<p class="centered-element-container"><a class="button--source-link" href="' + googlePlace.url + '" target="_blank">Read more</a></p>' +
+                                '</div>' +
+                                '<div class="logo-container">' +
+                                    '<img class="logo" srcset="img/google-places/powered_by_google_on_white.png 1x, img/google-places/powered_by_google_on_white@2x.png 2x" src="img/google-places/powered_by_google_on_white.png" alt="Powered by Google">' +
+                                '</div>'
+                            ;
+                        } else {
+                            formattedInfo = '<p class="info">Unfortunately there are no Google Places reviews for this listing. If you\'ve been here, why don\'t you <a href="' + googlePlace.url + '" target="_blank">write one</a>?</p>';
+                        }
 
                         $('<p class="address">' + googlePlace.formatted_address + '</p>').insertAfter('h2');
 
                         $('#google-places').append(formattedInfo);
                     });
                 } else {
-                    formattedInfo = '<p class="info">Something\'s wrong with Google Places. Please try again later.';
+                    formattedInfo = '<p class="info">Something\'s wrong with Google Places. Please try again later.</p>';
 
                     $('#google-places').append(formattedInfo);
                 }
