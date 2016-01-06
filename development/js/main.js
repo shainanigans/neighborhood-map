@@ -259,7 +259,7 @@ function startApp() {
             var windowWidth = window.innerWidth;
             var overlayWidth = $('#sidebar').width();
 
-            if (isMobileView)  {
+            if (ViewModel.isMobileView)  {
                 map.panTo(latLng);
                 map.panBy(0, (0 - windowHeight));
             } else {
@@ -433,21 +433,21 @@ function startApp() {
         });
 
         // Hide and show list when switching between mobile and desktop
-        isMobileView = window.outerWidth < 600;
+        this.isMobileView = window.innerWidth < 600;
 
         $(window).resize(function() {
-            var newViewIsMobileView = window.outerWidth < 600;
+            var newViewIsMobileView = window.innerWidth < 600;
 
-            if (!isMobileView && newViewIsMobileView) {
+            if (!this.isMobileView && newViewIsMobileView) {
                 $('.list-container').hide();
                 $('#view-list').text('View List');
             }
 
-            if (isMobileView && !newViewIsMobileView) {
+            if (this.isMobileView && !newViewIsMobileView) {
                 $('.list-container').show();
             }
 
-            isMobileView = newViewIsMobileView;
+            this.isMobileView = newViewIsMobileView;
         });
 
         // Create the list of places for the sidebar
@@ -477,7 +477,7 @@ function startApp() {
             mapView.isActiveMarker(mapView.markers[this.index]);
 
             // Hide the list on mobile devices
-            if (isMobileView) {
+            if (self.isMobileView) {
                 $('.list-container').hide();
                 $('#view-list').text('View List');
             }
