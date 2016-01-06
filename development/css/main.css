@@ -241,7 +241,6 @@ select::-ms-expand {
 .nav-item--active:hover {
     background-color: rgba(79,147,232,1.0);
 }
-
 .tab-title--active,
 .tab-title--active:hover {
     background: rgba(255, 255, 255, 0.8);
