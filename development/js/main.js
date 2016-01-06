@@ -345,7 +345,7 @@ function startApp() {
                     $('#yelp').append(formattedInfo);
                 },
                 'error': function(jqXHR, error) {
-                    $('#yelp').append('<p>Something\'s gone wrong with our Yelp reviews. Please try again later.</p>');
+                    $('#yelp').append('<p class="info">Something\'s gone wrong with our Yelp reviews. Please try again later.</p>');
                 }
             });
         },
@@ -403,7 +403,7 @@ function startApp() {
                         $('#google-places').append(formattedInfo);
                     });
                 } else {
-                    formattedInfo = '<p>Something\'s wrong with Google Places. Please try again later.';
+                    formattedInfo = '<p class="info">Something\'s wrong with Google Places. Please try again later.';
 
                     $('#google-places').append(formattedInfo);
                 }

@@ -118,6 +118,7 @@ select::-ms-expand {
 }
 .info {
     background: #F7F7F7;
+    margin-top: 0;
     padding: 1em;
 }
 .info-image {
