@@ -16,11 +16,15 @@ h2,
 h3 {
     font-weight: normal;
 }
+h2 {
+    margin-bottom: 0;
+}
 a {
     color: rgba(79,147,232,1.0);
     text-decoration: none;
 }
-button {
+button,
+[class*='button'] {
     background-color: rgba(255,255,255,0.0);
     margin-top: 1em;
     padding: 1em;
@@ -28,11 +32,13 @@ button {
     font-size: .9em;
     border: 2px solid #ffffff;
 }
-button:hover {
+button:hover,
+[class*='button']:hover {
     color: rgba(79,147,232,0.9);
     border-color: rgba(79,147,232,0.9);
 }
-button:focus {
+button:focus,
+[class*='button']:focus {
     outline: none;
 }
 input,
@@ -96,13 +102,22 @@ select::-ms-expand {
 .map {
     height: 100%;
 }
-.logo-container {
+.gm-style .gm-style-iw {
+    max-height: 20em;
+    overflow-y: scroll;
+}
+.address {
+    margin: .5em 0 1em;
+    font-size: .9em;
+    color: #555555;
+}
+.source-title {
     background: #DCDCDC;
-    padding: .5em 1em;
+    margin-bottom: 0;
+    padding: 1em;
 }
 .info {
     background: #F7F7F7;
-    margin: 0 0 1em;
     padding: 1em;
 }
 .info-image {
@@ -117,6 +132,27 @@ select::-ms-expand {
 }
 .snippet {
     font-size: 1em;
+}
+.stars {
+    margin-bottom: 0;
+    color: #EF8333;
+    font-size: 1.5em;
+}
+.centered-element-container {
+    text-align: center;
+    padding: 1em;
+}
+.button--source-link {
+    color: #555555;
+    border-color: #555555;
+    font-weight: bold;
+}
+.logo-container {
+    background: #F7F7F7;
+    margin: 0 0 1em;
+    padding: 1em;
+    text-align: center;
+    border-top: 1px solid #E8E8E8;
 }
 .sidebar {
     position: absolute;

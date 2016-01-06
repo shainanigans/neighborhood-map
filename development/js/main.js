@@ -161,8 +161,10 @@ function startApp() {
 
     var mapView = {
         init: function() {
+            this.newtown = {lat: -33.8959847, lng: 151.1788048};
+
             map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: -33.8959847, lng: 151.1788048},
+                center: this.newtown,
                 zoom: 16
             });
 
@@ -183,11 +185,12 @@ function startApp() {
                     title: this.markers[i].title,
                     info:
                         '<h2>' + this.markers[i].title + '</h2>' +
-                        '<div id="info">' +
+                        '<div>' +
                             '<div id="yelp">' +
-                                '<div class="logo-container">' +
-                                    '<img class="logo" srcset="img/yelp/yelp-logo-xsmall.png 1x, img/yelp/yelp-logo-xsmall@2x.png 2x" src="img/yelp/yelp-logo-xsmall.png" alt="Yelp logo">' +
-                                '</div>' +
+                                '<h3 class="source-title">Yelp</h3>' +
+                            '</div>' +
+                            '<div id="google-places">' +
+                                '<h3 class="source-title">Google Places</h3>' +
                             '</div>' +
                         '</div>',
                     icon: 'img/map-marker.svg',
@@ -201,6 +204,7 @@ function startApp() {
 
                     // Add Yelp info to infowindow
                     self.getYelp(this);
+                    self.getGooglePlaces(this);
 
                     // Assign value of this for use with active marker
                     var that = this;
@@ -260,7 +264,7 @@ function startApp() {
                 map.panBy(0, (0 - windowHeight));
             } else {
                 map.panTo(latLng);
-                map.panBy((0 - overlayWidth + this.infowindow.maxWidth/2), 0);
+                map.panBy((0 - overlayWidth + this.infowindow.maxWidth/2), (0 - windowHeight));
             }
         },
 
@@ -326,7 +330,12 @@ function startApp() {
                                 '<img class="info-image" src="' + image + '" alt="Photo from ' + place.title + '">' +
                                 '<img class="rating" src="' + ratingImage + '" alt="' + rating + ' star rating on Yelp">' +
                                 '<p class="review-count">out of ' + reviewCount + ' reviews</p>' +
-                                '<p class="snippet">' + reviewSnippet + '<a href="' + url + '" target="_blank">Read more</a></p>' +
+                                '<h4>Top Review:</h4>' +
+                                '<p class="snippet">' + reviewSnippet +  '</p>' +
+                                '<p class="centered-element-container"><a class="button--source-link" href="' + url + '" target="_blank">Read more</a></p>' +
+                            '</div>' +
+                            '<div class="logo-container">' +
+                                '<img class="logo" srcset="img/yelp/yelp-logo-xsmall.png 1x, img/yelp/yelp-logo-xsmall@2x.png 2x" src="img/yelp/yelp-logo-xsmall.png" alt="Yelp logo">' +
                             '</div>'
                         ;
                     } else {
@@ -339,6 +348,66 @@ function startApp() {
                     $('#yelp').append('<p>Something\'s gone wrong with our Yelp reviews. Please try again later.</p>');
                 }
             });
+        },
+
+        getGooglePlaces: function(place) {
+            // Start service
+            var service = new google.maps.places.PlacesService(map);
+
+            // Use Nearby Search to get the Place ID
+            service.nearbySearch({
+                location: mapView.newtown,
+                radius: 500,
+                types: ['store', 'restaurant', 'food'],
+                keyword: place.title,
+            }, callback);
+
+            function callback(results, status) {
+                var formattedInfo;
+
+                // Use the Place ID to get Place Details
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    service.getDetails({placeId: results[0].place_id}, function(googlePlace, status) {
+                        // Get number of stars to display based on rating
+                        var stars;
+
+                        if (googlePlace.rating > 0 && googlePlace.rating < .5) {
+                            stars = '<p class="stars">&#9734;&#9734;&#9734;&#9734;&#9734;</p>';
+                        } else if (googlePlace.rating >= .5 && googlePlace.rating < 1.5) {
+                            stars = '<p class="stars">&#9733;&#9734;&#9734;&#9734;&#9734;</p>';
+                        } else if (googlePlace.rating >= 1.5 && googlePlace.rating < 2.5) {
+                            stars = '<p class="stars">&#9733;&#9733;&#9734;&#9734;&#9734;</p>';
+                        } else if (googlePlace.rating >= 2.5 && googlePlace.rating < 3.5) {
+                            stars = '<p class="stars">&#9733;&#9733;&#9733;&#9734;&#9734;</p>';
+                        } else if (googlePlace.rating >= 3.5 && googlePlace.rating < 4.5) {
+                            stars = '<p class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</p>';
+                        } else {
+                            stars = '<p class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>';
+                        }
+
+                        formattedInfo =
+                            '<div class="info">' +
+                                stars +
+                                '<p class="review-count">out of ' + googlePlace.user_ratings_total + ' ratings</p>' +
+                                '<h4>Top Review:</h4>' +
+                                '<p class="snippet">' + googlePlace.reviews[0].text + '</p>' +
+                                '<p class="centered-element-container"><a class="button--source-link" href="' + googlePlace.url + '" target="_blank">Read more</a></p>' +
+                            '</div>' +
+                            '<div class="logo-container">' +
+                                '<img class="logo" srcset="img/google-places/powered_by_google_on_white.png 1x, img/google-places/powered_by_google_on_white@2x.png 2x" src="img/google-places/powered_by_google_on_white.png" alt="Powered by Google">' +
+                            '</div>'
+                        ;
+
+                        $('<p class="address">' + googlePlace.formatted_address + '</p>').insertAfter('h2');
+
+                        $('#google-places').append(formattedInfo);
+                    });
+                } else {
+                    formattedInfo = '<p>Something\'s wrong with Google Places. Please try again later.';
+
+                    $('#google-places').append(formattedInfo);
+                }
+            }
         }
     };
 
@@ -405,6 +474,7 @@ function startApp() {
             mapView.isActiveMarker(mapView.markers[this.index]);
 
             mapView.getYelp(mapView.markers[this.index]);
+            mapView.getGooglePlaces(mapView.markers[this.index]);
 
             // Hide the list on mobile devices
             if (isMobileView) {
