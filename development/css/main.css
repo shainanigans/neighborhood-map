@@ -102,10 +102,6 @@ select::-ms-expand {
 .map {
     height: 100%;
 }
-.gm-style .gm-style-iw {
-    max-height: 20em;
-    overflow-y: scroll;
-}
 .address {
     margin: .5em 0 1em;
     font-size: .9em;
