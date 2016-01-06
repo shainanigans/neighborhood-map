@@ -202,10 +202,6 @@ function startApp() {
                     // Offset map
                     self.offsetMap(this);
 
-                    // Add Yelp info to infowindow
-                    self.getYelp(this);
-                    self.getGooglePlaces(this);
-
                     // Assign value of this for use with active marker
                     var that = this;
                     that.previousMarker = this;
@@ -240,6 +236,10 @@ function startApp() {
             // Open infowindow
             this.infowindow.setContent(marker.info);
             this.infowindow.open(map, marker);
+
+            // Add Yelp and Google Places info to infowindow
+            this.getYelp(marker);
+            this.getGooglePlaces(marker);
         },
 
         isNotActiveMarker: function() {
@@ -472,9 +472,6 @@ function startApp() {
             // De-active previously active marker and make selected marker active
             mapView.isNotActiveMarker();
             mapView.isActiveMarker(mapView.markers[this.index]);
-
-            mapView.getYelp(mapView.markers[this.index]);
-            mapView.getGooglePlaces(mapView.markers[this.index]);
 
             // Hide the list on mobile devices
             if (isMobileView) {
