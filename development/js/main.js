@@ -13,7 +13,7 @@ function startApp() {
         omnivoreFriendly: 'Omnivore-friendly',
         italian: 'Italian',
         pizza: 'Pizza',
-        multiCuisine: 'Multi-cusisine',
+        multiCuisine: 'Multi-cuisine',
         vietnamese: 'Vietnamese',
         desserts: 'Desserts',
         fishAndChips: 'Fish & Chips'
@@ -94,7 +94,7 @@ function startApp() {
             },
             {
                 title: 'Filter',
-                content: '<select id="filter" class="filter" data-bind="options: tagList"></select>'
+                content: '<select id="filter" class="filter" data-bind="options: tagList, optionsCaption: \'Filter by cuisine...\', value: filterTag"></select>'
             }
         ]
     };
@@ -520,11 +520,12 @@ function startApp() {
             self.tagList.push(tags[i]);
         }
 
+        // Search function
+        // Live search method from opensoul.org/2011/06/23/live-search-with-knockoutjs/
+
         // Create an observable for the search query
         this.query = ko.observable('');
 
-        // Search function
-        // Live search method from opensoul.org/2011/06/23/live-search-with-knockoutjs/
         this.search = function(value) {
             // Remove all current locations from the search
             self.placeList.removeAll();
@@ -532,7 +533,6 @@ function startApp() {
 
             // Add locations back into the array as they are found
             for (i = 0; i < self.markers.length; i++) {
-
                 if (self.markers[i].title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
                     // Re-add the list location
                     self.placeList.push(self.markers[i]);
@@ -550,6 +550,38 @@ function startApp() {
         };
 
         this.query.subscribe(self.search);
+
+        // Filter function
+        // Create an observable for the search query
+        this.filterTag = ko.observable('');
+
+        this.filter = function(value) {
+            // Only run after an option has been selected
+            if (value) {
+                // Remove all current locations from the search
+                self.makePlaceList();
+                mapView.infowindow.close();
+
+                // Add locations back into the array as they match the filterTag
+                for (i = 0; i < self.markers.length; i++) {
+                    if (self.markers[i].tags.indexOf(value) >= 0) {
+                        // Re-add the list location
+                        self.placeList.push(self.markers[i]);
+
+                        // Show the marker
+                        mapView.markers[i].setVisible(true);
+                    } else {
+                        // Hide the marker
+                        mapView.markers[i].setVisible(false);
+                    }
+                }
+
+                // Remove the active class during and after search
+                $('.nav-item--active').removeClass('nav-item--active');
+            }
+        };
+
+        this.filterTag.subscribe(self.filter);
     };
 
     // Initalise map
