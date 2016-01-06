@@ -499,15 +499,6 @@ function startApp() {
 
         this.currentTab = ko.observable('');
 
-        //this.showTabContent = function(tab) {
-        //    // Add back all the places and markers to the list if they've been filtered out
-        //    self.makePlaceList();
-        //
-        //    for (i = 0; i < mapView.markers.length; i++) {
-        //        mapView.markers[i].setVisible(true);
-        //    }
-        //}
-
         // Start the app with the first item active
         this.currentTab(tabs[0]);
         //this.showTabContent(tabs[0]);
@@ -582,6 +573,19 @@ function startApp() {
         };
 
         this.filterTag.subscribe(self.filter);
+
+        // Reset the place list when switching between search and filter
+        this.resetPlaceList = function() {
+            // Add back all the places and markers to the list if they've been filtered out
+            self.makePlaceList();
+
+            for (i = 0; i < mapView.markers.length; i++) {
+                mapView.markers[i].setVisible(true);
+            }
+
+            $('#search').val(null);
+            $('#filter').val(null);
+        }
     };
 
     // Initalise map

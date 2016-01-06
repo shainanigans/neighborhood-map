@@ -38,7 +38,7 @@
 
                 <div class="list-container section__blue">
                     <ul id="list-sorter" class="tabs" data-bind="foreach: tabList">
-                        <li class="tab-title" data-bind="text: title, click: $parent.currentTab, css: {'tab-title--active': $parent.currentTab() === $data}"></li>
+                        <li class="tab-title" data-bind="text: title, click: $parent.currentTab, event: {click: $parent.resetPlaceList}, css: {'tab-title--active': $parent.currentTab() === $data}"></li>
                     </ul>
                     <div data-bind="foreach: tabList">
                         <div class="tab-content" data-bind="html: content, visible: $parent.currentTab() === $data"></div>
