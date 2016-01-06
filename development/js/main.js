@@ -90,11 +90,11 @@ function startApp() {
         tabs: [
             {
                 title: 'Search',
-                content: '<input class="search" placeholder="Search..." type="search" data-bind="value: query, valueUpdate: \'keyup\'" autocomplete="off">'
+                content: '<input id="search" class="search" placeholder="Search..." type="search" data-bind="value: query, valueUpdate: \'keyup\'" autocomplete="off">'
             },
             {
                 title: 'Filter',
-                content: '<select class="filter" data-bind="options: .tagList"></select>'
+                content: '<select id="filter" class="filter" data-bind="options: tagList"></select>'
             }
         ]
     };
@@ -458,7 +458,8 @@ function startApp() {
 
         this.makePlaceList = function() {
             // Empty the array if there are items inside
-            this.placeList().length = 0;
+            //self.placeList().length = 0;
+            self.placeList.removeAll();
 
             // Create the array
             for (i = 0; i < self.markers.length; i++) {
@@ -556,4 +557,8 @@ function startApp() {
 
     // Activate knockout.js
     ko.applyBindings(new ViewModel());
+
+    // Set bindings for dynamically generated tab content
+    ko.applyBindings(ViewModel(), document.getElementById('search'));
+    ko.applyBindings(ViewModel(), document.getElementById('filter'));
 }
