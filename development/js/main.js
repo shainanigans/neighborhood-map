@@ -542,6 +542,11 @@ function startApp() {
 
                     // Show the marker
                     mapView.markers[i].setVisible(true);
+
+                    // If only one place left, make it active
+                    if (self.placeList.length === 1) {
+                        mapView.isActiveMarker(mapView.markers[i]);
+                    }
                 } else {
                     // Hide the marker
                     mapView.markers[i].setVisible(false);
