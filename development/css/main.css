@@ -68,13 +68,13 @@ select {
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
-    -webkit-padding-end: 20px;
-    -moz-padding-end: 20px;
-    -webkit-padding-start: 2px;
-    -moz-padding-start: 2px;
-    background: url('../img/select-arrows.svg') 98% center no-repeat #ffffff;
+    -webkit-padding-end: 1.25em;
+    -moz-padding-end:  1.25em;
+    -webkit-padding-start: .125em;
+    -moz-padding-start: .125em;
+    background: url('../img/select-arrows.svg') 97% center no-repeat #ffffff;
     margin: 0;
-    padding: 1em .5em;
+    padding: 1em 20px 1em .5em; /* 20px prevents text from going under arrows */
     overflow: hidden;
     color: #555555;
     text-overflow: ellipsis;
@@ -212,6 +212,7 @@ select::-ms-expand {
 .filter {
     flex-shrink: 1;
     flex-grow: 1;
+    min-width: 50%;
     margin-bottom: 1em;
 }
 .clear {
