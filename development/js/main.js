@@ -260,12 +260,12 @@ function startApp() {
             var windowWidth = window.innerWidth;
             var overlayWidth = $('#sidebar').width();
 
-            if (ViewModel.isMobileView)  {
+            if (ViewModel.isMobileView || ViewModel.newViewIsMobileView)  {
                 map.panTo(latLng);
-                map.panBy(0, (0 - windowHeight));
+                //map.panBy(0, (0 - windowHeight));
             } else {
                 map.panTo(latLng);
-                map.panBy((0 - overlayWidth + this.infowindow.maxWidth/2), (0 - windowHeight));
+                //map.panBy((0 - overlayWidth + this.infowindow.maxWidth/2), (0 - windowHeight));
             }
         },
 
@@ -437,18 +437,18 @@ function startApp() {
         this.isMobileView = window.innerWidth < 600;
 
         $(window).resize(function() {
-            var newViewIsMobileView = window.innerWidth < 600;
+            this.newViewIsMobileView = window.innerWidth < 600;
 
-            if (!this.isMobileView && newViewIsMobileView) {
+            if (!this.isMobileView && this.newViewIsMobileView) {
                 $('.list-container').hide();
                 $('#view-list').text('View List');
             }
 
-            if (this.isMobileView && !newViewIsMobileView) {
+            if (this.isMobileView && !this.newViewIsMobileView) {
                 $('.list-container').show();
             }
 
-            this.isMobileView = newViewIsMobileView;
+            this.isMobileView = this.newViewIsMobileView;
         });
 
         // Create the list of places for the sidebar
@@ -479,7 +479,7 @@ function startApp() {
             mapView.isActiveMarker(mapView.markers[this.index]);
 
             // Hide the list on mobile devices
-            if (self.isMobileView) {
+            if (self.isMobileView || self.newViewIsMobileView) {
                 $('.list-container').hide();
                 $('#view-list').text('View List');
             }
