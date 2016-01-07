@@ -220,6 +220,7 @@ function startApp() {
             // Close infoWindow when map clicked
             google.maps.event.addListener(map, 'click', function(e) {
                 self.infowindow.close();
+                self.isNotActiveMarker();
             });
         },
 
