@@ -590,6 +590,9 @@ function startApp() {
 
             // Recenter the map
             map.setCenter(mapView.newtown);
+
+            // Close the infowindow
+            mapView.infowindow.close();
         }
     };
 
