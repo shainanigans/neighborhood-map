@@ -204,7 +204,7 @@ function startApp() {
                     var overlayHeight = $('#sidebar').height();
 
                     if (window.innerWidth < 600) {
-                        $('.infowindow').css("max-height", (windowHeight - overlayHeight) * .75);
+                        $('.infowindow').css("max-height", (windowHeight - overlayHeight) * 0.75);
                     }
                 });
             }
@@ -359,9 +359,9 @@ function startApp() {
                         // Get number of stars to display based on rating
                         var stars;
 
-                        if (googlePlace.rating > 0 && googlePlace.rating < .5) {
+                        if (googlePlace.rating > 0 && googlePlace.rating < 0.5) {
                             stars = '<p class="stars">&#9734;&#9734;&#9734;&#9734;&#9734;</p>';
-                        } else if (googlePlace.rating >= .5 && googlePlace.rating < 1.5) {
+                        } else if (googlePlace.rating >= 0.5 && googlePlace.rating < 1.5) {
                             stars = '<p class="stars">&#9733;&#9734;&#9734;&#9734;&#9734;</p>';
                         } else if (googlePlace.rating >= 1.5 && googlePlace.rating < 2.5) {
                             stars = '<p class="stars">&#9733;&#9733;&#9734;&#9734;&#9734;</p>';
@@ -588,8 +588,8 @@ function startApp() {
 
             // Close the infowindow
             mapView.infowindow.close();
-        }
-    };
+        };
+    }
 
     // Initalise map
     modelController.init();
