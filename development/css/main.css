@@ -19,6 +19,9 @@ h3 {
 h2 {
     margin-bottom: 0;
 }
+p {
+    line-height: 1.6em;
+}
 a {
     color: rgba(79,147,232,1.0);
     text-decoration: none;
@@ -102,6 +105,9 @@ select::-ms-expand {
 }
 .map {
     height: 100%;
+}
+.infowindow {
+    overflow-y: scroll;
 }
 .address {
     margin: .5em 0 2em;

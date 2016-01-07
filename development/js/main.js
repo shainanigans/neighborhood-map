@@ -184,13 +184,15 @@ function startApp() {
                     position: this.markers[i].position,
                     title: this.markers[i].title,
                     info:
-                        '<h2>' + this.markers[i].title + '</h2>' +
-                        '<div>' +
-                            '<div id="yelp">' +
-                                '<h3 class="source-title">Yelp</h3>' +
-                            '</div>' +
-                            '<div id="google-places">' +
-                                '<h3 class="source-title">Google Places</h3>' +
+                        '<div class="infowindow">' +
+                            '<h2>' + this.markers[i].title + '</h2>' +
+                            '<div>' +
+                                '<div id="yelp">' +
+                                    '<h3 class="source-title">Yelp</h3>' +
+                                '</div>' +
+                                '<div id="google-places">' +
+                                    '<h3 class="source-title">Google Places</h3>' +
+                                '</div>' +
                             '</div>' +
                         '</div>',
                     icon: 'img/map-marker.svg',
@@ -214,6 +216,14 @@ function startApp() {
                     var htmlLinks = modelController.getHTMLList();
                     $('.nav-item--active').removeClass('nav-item--active');
                     $(htmlLinks[this.index]).addClass('nav-item--active');
+
+                    //Adjust infowindow height in mobile views
+                    var windowHeight = window.innerHeight;
+                    var overlayHeight = $('#sidebar').height();
+
+                    if (window.innerWidth < 600) {
+                        $('.infowindow').css("max-height", (windowHeight - overlayHeight) * .75);
+                    }
                 });
             }
 
@@ -253,19 +263,20 @@ function startApp() {
             }
         },
 
-        // Offset the map so it's not hidden by the overlay
+        // Offset the map and modify infowindow so it's not hidden by the overlay
         offsetMap: function(marker) {
             var latLng = marker.getPosition();
             var windowHeight = window.innerHeight;
             var windowWidth = window.innerWidth;
             var overlayWidth = $('#sidebar').width();
+            var overlayHeight = $('#sidebar').height();
 
-            if (ViewModel.isMobileView || ViewModel.newViewIsMobileView)  {
+            if (windowWidth < 600)  {
                 map.panTo(latLng);
-                //map.panBy(0, (0 - windowHeight));
+                map.panBy(0, (0 - windowHeight));
             } else {
                 map.panTo(latLng);
-                //map.panBy((0 - overlayWidth + this.infowindow.maxWidth/2), (0 - windowHeight));
+                map.panBy((0 - overlayWidth + this.infowindow.maxWidth/2), (0 - windowHeight));
             }
         },
 
