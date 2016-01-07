@@ -90,11 +90,11 @@ function startApp() {
         tabs: [
             {
                 title: 'Search',
-                content: '<input id="search" class="search" placeholder="Search..." type="search" data-bind="value: query, valueUpdate: \'keyup\'" autocomplete="off">'
+                content: '<input id="search" class="search" placeholder="Search..." type="search" data-bind="value: query, valueUpdate: \'keyup\'" autocomplete="off"><div id="clear-search" class="clear button" data-bind="click: resetPlaceList" title="Clear the search">x</div>'
             },
             {
                 title: 'Filter',
-                content: '<select id="filter" class="filter" data-bind="options: tagList, optionsCaption: \'Filter by cuisine...\', value: filterTag"></select>'
+                content: '<select id="filter" class="filter" data-bind="options: tagList, optionsCaption: \'Filter by cuisine...\', value: filterTag"></select><div id="clear-filter" class="clear button" data-bind="click: resetPlaceList" title="Clear the selection">x</div>'
             }
         ]
     };
@@ -597,4 +597,6 @@ function startApp() {
     // Set bindings for dynamically generated tab content
     ko.applyBindings(ViewModel(), document.getElementById('search'));
     ko.applyBindings(ViewModel(), document.getElementById('filter'));
+    ko.applyBindings(ViewModel(), document.getElementById('clear-search'));
+    ko.applyBindings(ViewModel(), document.getElementById('clear-filter'));
 }
