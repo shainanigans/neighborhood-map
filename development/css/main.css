@@ -93,7 +93,7 @@ select::-ms-expand {
  *MODULES
  **********************/
 .title {
-    font-size: 1em;
+    font-size: 1.5em;
 }
 .map-container {
     position: fixed;
@@ -164,7 +164,7 @@ select::-ms-expand {
     min-height: 100%;
 }
 [class*='section'] {
-    padding: 3em;
+    padding: 2em;
 }
 .section__black {
     background-color: rgba(0,0,0,.8);
@@ -267,6 +267,9 @@ select::-ms-expand {
     }
     .title {
         font-size: 2em;
+    }
+    [class*='section'] {
+        padding: 3em;
     }
     .sidebar {
         width: 50%;
