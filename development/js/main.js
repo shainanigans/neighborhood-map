@@ -251,7 +251,6 @@ function startApp() {
             var windowHeight = window.innerHeight;
             var windowWidth = window.innerWidth;
             var overlayWidth = $('#sidebar').width();
-            var overlayHeight = $('#sidebar').height();
 
             if (windowWidth < 600)  {
                 map.panTo(latLng);
