@@ -37,12 +37,21 @@
                 </div> <!-- .section__black -->
 
                 <div class="list-container section__blue">
-                    <ul id="list-sorter" class="tabs" data-bind="foreach: tabList">
-                        <li class="tab-title" data-bind="text: title, click: $parent.currentTab, event: {click: $parent.resetPlaceList}, css: {'tab-title--active': $parent.currentTab() === $data}"></li>
+                    <ul id="list-sorter" class="tabs">
+                        <li id="search-title" class="tab-title tab-title--active" data-bind="click: resetPlaceList, event: {click: changeToSearch}">Search</li>
+                        <li id="filter-title" class="tab-title" data-bind="click: resetPlaceList, event: {click: changeToFilter}">Filter</li>
                     </ul>
-                    <div data-bind="foreach: tabList">
-                        <div class="tab-content" data-bind="html: content, visible: $parent.currentTab() === $data"></div>
+
+                    <div id="search-content" class="tab-content tab-content--active">
+                        <input id="search" class="search" placeholder="Search..." type="search" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
+                        <div id="clear-search" class="clear button" data-bind="click: resetPlaceList" title="Clear the search">x</div>
                     </div>
+
+                    <div id="filter-content" class="tab-content">
+                        <select id="filter" class="filter" data-bind="options: tagList, optionsCaption: 'Filter by cuisine...', value: filterTag"></select>
+                        <div id="clear-filter" class="clear button" data-bind="click: resetPlaceList" title="Clear the selection">x</div>
+                    </div>
+
                     <ul id="place-list" class="sidenav" data-bind="foreach: placeList">
                         <li class="nav-item" data-bind="text: title, click: $parent.currentPlace, event: {click: $parent.selectPlace}, css: {'nav-item--active': $parent.currentPlace() === $data}"></li>
                     </ul>
@@ -57,6 +66,8 @@
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <!--<script src="bower_components/jquery-ui.min.js"></script>
+        <script src="bower_components/jquery-ui/ui/minified/autocomplete.min.js"></script>-->
 
         <!-- OAuth -->
 		<script type="text/javascript" src="http://oauth.googlecode.com/svn/code/javascript/oauth.js"></script>

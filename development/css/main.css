@@ -198,7 +198,7 @@ select::-ms-expand {
     cursor: pointer;
 }
 .tab-content {
-    display: flex;
+    display: none;
     flex-wrap: nowrap;
 }
 .search {
@@ -263,6 +263,9 @@ select::-ms-expand {
     background: rgba(255, 255, 255, 0.8);
     border: 1px solid #ffffff;
     border-bottom: 0;
+}
+.tab-content--active {
+    display: flex;
 }
 
 /**********************
