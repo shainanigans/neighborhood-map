@@ -263,15 +263,10 @@ function startApp() {
         },
 
         getYelp: function(place) {
-            // Get keys
-            //require('keys.js');
-
             var auth = {
                 consumerKey : 'GIdnV7AA9LNrjdgxijDWug',
-                //consumerSecret : secretKeys.yelpConsumerSecret,
                 consumerSecret : 'h8S9YHpC0tuHtpWsnA5HXbapGZk',
                 accessToken : '_TF1GDa2ulcE48qsFoBNefXszmtqmT5A',
-                //accessTokenSecret : secretKeys.yelpAccessTokenSecret,
                 accessTokenSecret : '0I3ygsXN3MA7X3CXD_TSnwCPEPs',
                 serviceProvider : {
                     signatureMethod : 'HMAC-SHA1'
