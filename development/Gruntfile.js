@@ -1,6 +1,21 @@
 module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        copy: {
+            main: {
+                files: [{
+                    expand: true,
+                    cwd: 'development/',
+                    src: ['**'],
+                    dest: 'production/',
+                    options: {
+                        process: function (content, srcpath) {
+                            return content.replace(/[main.js]/,"main.min.js");
+                        },
+                    },
+                }]
+            },
+        },
         autoprefixer:{
             dist:{
                 files:{
@@ -23,6 +38,8 @@ module.exports = function(grunt) {
             }
         }
     });
+    /* All Files */
+    grunt.loadNpmTasks('grunt-contrib-copy');
     /* CSS Tasks */
     grunt.loadNpmTasks('grunt-autoprefixer');
     /* JS Tasks */
