@@ -551,7 +551,7 @@ function startApp() {
             // Only run after an option has been selected
             if (value) {
                 // Remove all current locations from the search
-                self.makePlaceList();
+                self.placeList.removeAll();
                 mapView.infowindow.close();
 
                 // Add locations back into the array as they match the filterTag
