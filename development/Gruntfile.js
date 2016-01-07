@@ -1,21 +1,6 @@
 module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        copy: {
-            main: {
-                files: [{
-                    expand: true,
-                    cwd: 'development/',
-                    src: ['**'],
-                    dest: 'production/',
-                    options: {
-                        process: function (content, srcpath) {
-                            return content.replace(/[main.js]/,"main.min.js");
-                        },
-                    },
-                }]
-            },
-        },
         autoprefixer:{
             dist:{
                 files:{
@@ -36,6 +21,21 @@ module.exports = function(grunt) {
                     '../production/js/main.min.js': 'js/main.js'
                 }
             }
+        },
+        copy: {
+            main: {
+                files: [{
+                    expand: true,
+                    cwd: '/',
+                    src: ['**', '!Gruntfiles.js', '!**/node_modules/**', '!package.json'],
+                    dest: 'production/',
+                    options: {
+                        process: function (content, srcpath) {
+                            return content.replace(/[main.js]/,"main.min.js");
+                        },
+                    },
+                }]
+            },
         }
     });
     /* All Files */
@@ -45,5 +45,5 @@ module.exports = function(grunt) {
     /* JS Tasks */
     grunt.loadNpmTasks('grunt-contrib-uglify');
     /* Default Task */
-    grunt.registerTask('default', ['autoprefixer', 'uglify']);
+    grunt.registerTask('default', ['autoprefixer', 'uglify', 'copy']);
 }

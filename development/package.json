@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "devDependencies": {
     "grunt": "~0.4.1",
+    "grunt-autoprefixer": "~0.2.20130806",
     "grunt-contrib-clean": "^0.7.0",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-copy": "^0.8.2",
