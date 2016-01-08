@@ -188,7 +188,6 @@ function startApp() {
 
                     // Assign value of this for use with active marker
                     var that = this;
-                    that.previousMarker = this;
 
                     // De-active previously active marker and make selected marker active
                     self.isNotActiveMarker();
