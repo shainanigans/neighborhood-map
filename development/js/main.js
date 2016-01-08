@@ -85,6 +85,20 @@ function startApp() {
         ]
     };
 
+    // TAB MODEL
+    var tabModel = {
+        tabs: [
+            {
+                title: 'Search',
+                content: '<input id="search" class="search" placeholder="Search..." type="search" data-bind="value: query, valueUpdate: \'keyup\'" autocomplete="off"><div id="clear-search" class="clear button" data-bind="click: resetPlaceList" title="Clear the search">x</div>'
+            },
+            {
+                title: 'Filter',
+                content: '<select id="filter" class="filter" data-bind="options: tagList, optionsCaption: \'Filter by cuisine...\', value: filterTag"></select><div id="clear-filter" class="clear button" data-bind="click: resetPlaceList" title="Clear the selection">x</div>'
+            }
+        ]
+    };
+
     /**********************
      *MAP
      **********************/
@@ -138,6 +152,10 @@ function startApp() {
             tags.sort();
 
             return tags;
+        },
+
+        getTabs: function() {
+            return tabModel.tabs;
         }
     };
 
@@ -476,22 +494,18 @@ function startApp() {
         // Track the current place
         this.currentPlace = ko.observable('');
 
-        // Change to the other tab
-        this.changeToFilter = function() {
-            $('#filter-tab').addClass('tab-title--active');
-            $('#search-tab').removeClass('tab-title--active');
+        // Tabs for the search and filter
+        this.tabList = ko.observableArray([]);
+        var tabs = modelController.getTabs();
 
-            $('#filter-content').addClass('tab-content--active');
-            $('#search-content').removeClass('tab-content--active');
-        };
+        for (i = 0; i < tabs.length; i++) {
+            self.tabList.push(tabs[i]);
+        }
 
-        this.changeToSearch = function() {
-            $('#search-tab').addClass('tab-title--active');
-            $('#filter-tab').removeClass('tab-title--active');
+        this.currentTab = ko.observable('');
 
-            $('#search-content').addClass('tab-content--active');
-            $('#filter-content').removeClass('tab-content--active');
-        };
+        // Start the app with the first item active
+        this.currentTab(tabs[0]);
 
         // Create an observable array of the tags
         this.tagList = ko.observableArray([]);
@@ -593,5 +607,12 @@ function startApp() {
     modelController.init();
 
     // Activate knockout.js
-    ko.applyBindings(new ViewModel());
+    var VM = new ViewModel();
+    ko.applyBindings(VM);
+
+    // Bind to dynamically generated content
+    ko.applyBindings(VM, document.getElementById('search'));
+    ko.applyBindings(VM, document.getElementById('filter'));
+    ko.applyBindings(VM, document.getElementById('clear-search'));
+    ko.applyBindings(VM, document.getElementById('clear-filter'));
 }

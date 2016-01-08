@@ -202,7 +202,10 @@ select::-ms-expand {
     cursor: pointer;
 }
 .tab-content {
-    display: none;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
     -webkit-flex-wrap: nowrap;
         -ms-flex-wrap: nowrap;
             flex-wrap: nowrap;
@@ -279,12 +282,6 @@ select::-ms-expand {
     background: rgba(255, 255, 255, 0.8);
     border: 1px solid #ffffff;
     border-bottom: 0;
-}
-.tab-content--active {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
 }
 
 /**********************
