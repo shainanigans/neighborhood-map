@@ -535,22 +535,6 @@ function startApp() {
 
         this.query.subscribe(self.search);
 
-        // Autocomplete for search
-        var placeTitles = [];
-
-        for (i = 0; i < this.markers.length; i++) {
-            placeTitles.push(this.markers[i].title)
-        }
-
-        $('#search').autocomplete({
-            source: placeTitles,
-            select: function (suggestion) {
-                //self.search(suggestion);
-                this.query(suggestion);
-                console.log('working');
-            }
-        });
-
         // Filter function
         // Create an observable for the search query
         this.filterTag = ko.observable('');

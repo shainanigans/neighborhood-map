@@ -220,27 +220,6 @@ select::-ms-expand {
     padding: 1em .5em;
     box-sizing: border-box;
 }
-.ui-autocomplete {
-    background: rgba(255, 255, 255, 0.6);
-    padding: 0;
-    list-style: none;
-    font-size: .9em;
-    color: #555555;
-    text-transform: uppercase;
-    z-index: 199;
-}
-.ui-menu-item {
-    padding: 0.5em;
-}
-.ui-menu-item:first-child {
-    padding-top: 1em;
-}
-.ui-menu-item:last-child {
-    padding-bottom: 1em;
-}
-.ui-menu-item:hover {
-    background: rgba(255, 255, 255, 0.7);
-}
 .filter {
     -webkit-flex-shrink: 1;
         -ms-flex-negative: 1;
