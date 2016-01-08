@@ -600,6 +600,9 @@ function startApp() {
 
             // Close the infowindow
             mapView.infowindow.close();
+
+            // Deactivate the marker
+            mapView.isNotActiveMarker();
         };
     }
 
