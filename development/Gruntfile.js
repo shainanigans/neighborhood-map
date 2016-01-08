@@ -21,11 +21,11 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: '../development',
-                    src: ['**/*', '!Gruntfile.js', '!**node_modules/**', '!package.json', '!**js/main.js'],
+                    src: ['**/*', '!Gruntfile.js', '!**node_modules/**', '!package.json', '!**js/main.js', '!**bower_components/**', 'bower_components/jquery/dist/jquery.min.js', 'bower_components/knockout/dist/knockout.js'],
                     dest: '../production/',
                     options: {
                         process: function (content, srcpath) {
-                            return content.replace(/[main\.js]/g, 'main.min.js');
+                            return content.replace('main.js', 'main.min.js');
                         },
                     },
                 }]
