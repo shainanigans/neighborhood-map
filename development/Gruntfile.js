@@ -9,12 +9,6 @@ module.exports = function(grunt) {
             }
         },
         uglify: {
-            development: {
-                files: {
-                    /* Minify in development folder */
-                    'js/main.min.js': 'js/main.js'
-                }
-            },
             production: {
                 files: {
                     /* Minify in production folder */
@@ -26,12 +20,12 @@ module.exports = function(grunt) {
             main: {
                 files: [{
                     expand: true,
-                    cwd: '/',
-                    src: ['**', '!Gruntfiles.js', '!**/node_modules/**', '!package.json'],
-                    dest: 'production/',
+                    cwd: '../development',
+                    src: ['**/*', '!Gruntfile.js', '!**node_modules/**', '!package.json', '!**js/main.js'],
+                    dest: '../production/',
                     options: {
                         process: function (content, srcpath) {
-                            return content.replace(/[main.js]/,"main.min.js");
+                            return content.replace(/[main\.js]/g, 'main.min.js');
                         },
                     },
                 }]
