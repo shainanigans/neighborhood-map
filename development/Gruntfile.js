@@ -9,6 +9,9 @@ module.exports = function(grunt) {
             }
         },
         uglify: {
+            options: {
+                mangle: false
+            },
             production: {
                 files: {
                     /* Minify in production folder */
@@ -21,23 +24,32 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: '../development',
-                    src: ['**/*', '!Gruntfile.js', '!**node_modules/**', '!package.json', '!**js/main.js', '!**bower_components/**', 'bower_components/jquery/dist/jquery.min.js', 'bower_components/knockout/dist/knockout.js'],
-                    dest: '../production/',
-                    options: {
-                        process: function (content, srcpath) {
-                            return content.replace('main.js', 'main.min.js');
-                        },
-                    },
+                    src: ['**/*', '!Gruntfile.js', '!**node_modules/**', '!package.json',  '!**bower_components/**', 'bower_components/jquery/dist/jquery.min.js', 'bower_components/knockout/dist/knockout.js'],
+                    dest: '../production/'
                 }]
             },
+        },
+        'string-replace': {
+            dist: {
+                files: {
+                    '../production/index.html': '../production/index.html'
+                },
+                options: {
+                    replacements: [{
+                        pattern: 'main.js',
+                        replacement: 'main.min.js'
+                    }]
+                }
+            }
         }
     });
     /* All Files */
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-string-replace');
     /* CSS Tasks */
     grunt.loadNpmTasks('grunt-autoprefixer');
     /* JS Tasks */
     grunt.loadNpmTasks('grunt-contrib-uglify');
     /* Default Task */
-    grunt.registerTask('default', ['autoprefixer', 'uglify', 'copy']);
+    grunt.registerTask('default', ['autoprefixer', 'uglify', 'copy', 'string-replace']);
 }
