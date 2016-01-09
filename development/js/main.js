@@ -201,7 +201,8 @@ function startApp() {
                     var overlayHeight = $('#sidebar').height();
 
                     if (window.innerWidth < 600) {
-                        $('.infowindow').css("max-height", (windowHeight - overlayHeight) * 0.75);
+                        $('.infowindow').css("max-height", (windowHeight - overlayHeight) * 0.7);
+                        $('.title').hide();
                     }
                 });
             };
@@ -440,6 +441,7 @@ function startApp() {
         $('#view-list').click(function() {
 
             $('.list-container').toggle();
+            $('.title').show();
 
             $(this).text(function(i, text){
                 return text === 'View List' ? 'Hide List' : 'View List';
@@ -499,6 +501,15 @@ function startApp() {
             }
 
             mapView.offsetMap(mapView.markers[this.index]);
+
+            // Hide the title and adjust infowindow height in mobile views
+            var windowHeight = window.innerHeight;
+            var overlayHeight = $('#sidebar').height();
+
+            if (self.isMobileView) {
+                $('.infowindow').css("max-height", (windowHeight - overlayHeight) * 0.7);
+                $('.title').hide();
+            }
         };
 
         // Track the current place
