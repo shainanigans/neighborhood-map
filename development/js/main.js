@@ -318,6 +318,10 @@ function startApp() {
             var parameterMap = OAuth.getParameterMap(message.parameters);
             parameterMap.oauth_signature = OAuth.percentEncode(parameterMap.oauth_signature);
 
+            var yelpErrorTimeout = setTimeout(function() {
+                $('#yelp').append('<p class="info">Something\'s gone wrong with our Yelp reviews. Please try again later.</p>');
+            }, 8000);
+
             $.ajax({
                 'url': message.action,
                 'data': parameterMap,
@@ -352,12 +356,13 @@ function startApp() {
                         formattedInfo = '<p class="info">Unfortunately there are no Yelp reviews for this listing. If you\'ve been here, why don\'t you <a href="' + url + '" target="_blank">write one</a>?</p>';
                     }
 
+                    clearTimeout(yelpErrorTimeout);
+
                     $('#yelp').append(formattedInfo);
-                },
-                'error': function(jqXHR, error) {
-                    $('#yelp').append('<p class="info">Something\'s gone wrong with our Yelp reviews. Please try again later.</p>');
                 }
             });
+
+            return false;
         },
 
         getGooglePlaces: function(place) {
