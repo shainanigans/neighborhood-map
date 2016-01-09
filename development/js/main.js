@@ -178,29 +178,9 @@ function startApp() {
                 maxWidth: 300
             });
 
-            // Create markers on the page and attach infoWindow
-            for (i = 0; i < this.markers.length; i++) {
-                this.markers[i] = new google.maps.Marker({
-                    position: this.markers[i].position,
-                    title: this.markers[i].title,
-                    info:
-                        '<div class="infowindow">' +
-                            '<h2>' + this.markers[i].title + '</h2>' +
-                            '<div>' +
-                                '<div id="yelp">' +
-                                    '<h3 class="source-title">Yelp</h3>' +
-                                '</div>' +
-                                '<div id="google-places">' +
-                                    '<h3 class="source-title">Google Places</h3>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>',
-                    icon: 'img/map-marker.svg',
-                    tags: this.markers[i].tags,
-                    map: map
-                });
-
-                google.maps.event.addListener(this.markers[i], 'click', function(e) {
+            // Event listener for clicking on marker
+            var markerListener = function(marker) {
+                google.maps.event.addListener(marker, 'click', function(e) {
                     // Offset map
                     self.offsetMap(this);
 
@@ -224,6 +204,31 @@ function startApp() {
                         $('.infowindow').css("max-height", (windowHeight - overlayHeight) * 0.75);
                     }
                 });
+            };
+
+            // Create markers on the page and attach infoWindow
+            for (i = 0; i < this.markers.length; i++) {
+                this.markers[i] = new google.maps.Marker({
+                    position: this.markers[i].position,
+                    title: this.markers[i].title,
+                    info:
+                        '<div class="infowindow">' +
+                            '<h2>' + this.markers[i].title + '</h2>' +
+                            '<div>' +
+                                '<div id="yelp">' +
+                                    '<h3 class="source-title">Yelp</h3>' +
+                                '</div>' +
+                                '<div id="google-places">' +
+                                    '<h3 class="source-title">Google Places</h3>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>',
+                    icon: 'img/map-marker.svg',
+                    tags: this.markers[i].tags,
+                    map: map
+                });
+
+                markerListener(this.markers[i]);
             }
 
             // Close infoWindow when map clicked
