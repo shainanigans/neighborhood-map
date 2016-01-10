@@ -613,8 +613,8 @@ function startApp() {
                 mapView.markers[i].setVisible(true);
             }
 
-            $('#search').val(null);
-            $('#filter').val(null);
+            this.query(null);
+            this.filterTag(null);
 
             // Recenter the map
             map.setCenter(mapView.newtown);
