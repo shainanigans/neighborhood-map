@@ -37,6 +37,18 @@ module.exports = function(grunt) {
             }
         },
 
+        htmlmin: {
+            dist: {
+                options: {
+                    removeComments: true,
+                    collapseWhitespace: true
+                },
+                files: {
+                    'production/index.html': 'production/index.html'
+                }
+            }
+        },
+
         clean: ['production/'],
 
         copy: {
@@ -79,6 +91,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-string-replace');
+    /* HTML Tasks */
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
     /* CSS Tasks */
     grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -86,5 +100,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
     /* Default Task */
-    grunt.registerTask('default', ['clean', 'copy', 'autoprefixer', 'cssmin', 'uglify', 'string-replace']);
+    grunt.registerTask('default', ['clean', 'copy', 'autoprefixer', 'htmlmin', 'cssmin', 'uglify', 'string-replace']);
 }
