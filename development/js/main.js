@@ -374,30 +374,37 @@ function startApp() {
         var self = this;
 
         // Show list when button clicked on mobile
-        $('#view-list').click(function() {
+        this.buttonText = ko.observable('View List');
+        this.listIsVisible = ko.observable(true);
+        this.titleIsVisible = ko.observable(true);
 
-            $('.list-container').toggle();
-            $('.title').show();
+        this.changeButton = function() {
+            this.titleIsVisible = ko.observable(false);
 
-            $(this).text(function(i, text){
-                return text === 'View List' ? 'Hide List' : 'View List';
-            });
-
-        });
+            if (self.buttonText() === 'View List') {
+                self.buttonText('Hide List');
+            } else {
+                self.buttonText('View List');
+            }
+        };
 
         // Hide and show list when switching between mobile and desktop
         this.isMobileView = window.innerWidth < 600;
+
+        if (this.isMobileView) {
+            self.listIsVisible(false);
+        }
 
         $(window).resize(function() {
             this.newViewIsMobileView = window.innerWidth < 600;
 
             if (!this.isMobileView && this.newViewIsMobileView) {
-                $('.list-container').hide();
-                $('#view-list').text('View List');
+                self.listIsVisible(false);
+                self.buttonText('View List');
             }
 
             if (this.isMobileView && !this.newViewIsMobileView) {
-                $('.list-container').show();
+                self.listIsVisible(true);
             }
 
             this.isMobileView = this.newViewIsMobileView;
@@ -445,7 +452,7 @@ function startApp() {
 
                 if (window.innerWidth < 600) {
                     $('.infowindow').css("max-height", (windowHeight - overlayHeight) * 0.7);
-                    $('.title').hide();
+                    self.titleIsVisible(false);
                 }
             });
         };
@@ -494,8 +501,8 @@ function startApp() {
 
             // Hide the list on mobile devices
             if (self.isMobileView || self.newViewIsMobileView) {
-                $('.list-container').hide();
-                $('#view-list').text('View List');
+                self.listIsVisible(false);
+                self.buttonText('View List');
             }
 
             mapView.offsetMap(self.markers[index]);
@@ -506,7 +513,7 @@ function startApp() {
 
             if (self.isMobileView) {
                 $('.infowindow').css("max-height", (windowHeight - overlayHeight) * 0.7);
-                $('.title').hide();
+                self.titleIsVisible(false);
             }
         };
 

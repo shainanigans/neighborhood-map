@@ -32,11 +32,11 @@
             <div id="sidebar" class="sidebar">
 
                 <div class="section__black">
-                    <h1 class="title">A Vegan Foodie's Guide to Newtown, Sydney</h1>
-                    <button id="view-list" class="mobile">View List</button>
+                    <h1 class="title" data-bind="visible: buttonText() === 'Hide List' || titleIsVisible() === true">A Vegan Foodie's Guide to Newtown, Sydney</h1>
+                    <button id="view-list" class="mobile" data-bind="text: buttonText(), click: changeButton"></button>
                 </div> <!-- .section__black -->
 
-                <div class="list-container section__blue">
+                <div class="list-container section__blue" data-bind="visible: buttonText() === 'Hide List' || listIsVisible() === true">
                     <ul id="list-sorter" class="tabs" data-bind="foreach: tabList">
                         <li class="tab-title" data-bind="text: title, click: $parent.currentTab, event: {click: $parent.resetPlaceList}, css: {'tab-title--active': $parent.currentTab() === $data}"></li>
                     </ul>

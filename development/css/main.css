@@ -180,9 +180,6 @@ select::-ms-expand {
 .section__blue {
     background-color: rgba(79,147,232,.8);
 }
-.list-container {
-    display: none;
-}
 .tabs {
     display: -webkit-box;
     display: -webkit-flex;
