@@ -411,7 +411,6 @@ function startApp() {
 
         this.makePlaceList = function() {
             // Empty the array if there are items inside
-            //self.placeList().length = 0;
             self.placeList.removeAll();
 
             // Create the array
@@ -486,10 +485,12 @@ function startApp() {
         modelController.setIndex();
 
         // This function runs when list item clicked
-        this.selectPlace = function() {
+        this.selectPlace = function(place) {
             // De-active previously active marker and make selected marker active
+            var index = self.placeList.indexOf(place);
+
             mapView.isNotActiveMarker();
-            mapView.isActiveMarker(mapView.markers[this.index]);
+            mapView.isActiveMarker(self.markers[index]);
 
             // Hide the list on mobile devices
             if (self.isMobileView || self.newViewIsMobileView) {
@@ -497,7 +498,7 @@ function startApp() {
                 $('#view-list').text('View List');
             }
 
-            mapView.offsetMap(mapView.markers[this.index]);
+            mapView.offsetMap(self.markers[index]);
 
             // Hide the title and adjust infowindow height in mobile views
             var windowHeight = window.innerHeight;
@@ -558,7 +559,7 @@ function startApp() {
             }
 
             // Remove the active class during and after search
-            $('.nav-item--active').removeClass('nav-item--active');
+            self.currentPlace(null);
         };
 
         this.query.subscribe(self.search);
@@ -592,7 +593,7 @@ function startApp() {
                 }
 
                 // Remove the active class during and after search
-                $('.nav-item--active').removeClass('nav-item--active');
+                self.currentPlace(null);
             }
         };
 
@@ -607,8 +608,10 @@ function startApp() {
                 mapView.markers[i].setVisible(true);
             }
 
-            this.query(null);
-            this.filterTag(null);
+            // Reset the list, search field, and active filter
+            self.currentPlace('');
+            self.query('');
+            self.filterTag('');
 
             // Recenter the map
             map.setCenter(mapView.newtown);
