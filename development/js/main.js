@@ -554,6 +554,7 @@ function startApp() {
             // Remove all current locations from the search
             self.placeList.removeAll();
             mapView.infowindow.close();
+            mapView.isNotActiveMarker();
 
             // Add locations back into the array as they are found
             for (var i = 0; i < markersLength; i++) {
@@ -588,6 +589,7 @@ function startApp() {
                 // Remove all current locations from the search
                 self.placeList.removeAll();
                 mapView.infowindow.close();
+                mapView.isNotActiveMarker();
 
                 // Add locations back into the array as they match the filterTag
                 for (var i = 0; i < markersLength; i++) {
