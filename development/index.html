@@ -42,10 +42,12 @@
                     </ul>
                     <div data-bind="foreach: tabList">
                         <div class="tab-content" data-bind="html: content, visible: $parent.currentTab() === $data"></div>
-                    </div>
+                    </div> <!-- .tabs -->
+
                     <ul id="place-list" class="sidenav" data-bind="foreach: placeList">
-                        <li class="nav-item" data-bind="text: title, click: $parent.currentPlace, event: {click: $parent.selectPlace}, css: {'nav-item--active': $parent.currentPlace() === $data}"></li>
-                    </ul>
+                        <li class="nav-item" data-bind="text: title, click: $parent.currentPlace, event: {click: $parent.selectPlace}, css: {'nav-item--active': $parent.currentPlace() === $data || $parent.currentPlace() === $data.title}"></li>
+                    </ul> <!-- #place-list -->
+
                 </div> <!-- .section__blue -->
 
             </div> <!-- #sidebar -->

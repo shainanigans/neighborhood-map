@@ -133,10 +133,6 @@ function startApp() {
             }
         },
 
-        getHTMLList: function() {
-            return document.getElementsByClassName('nav-item');
-        },
-
         getTags: function() {
             var tags = [];
 
@@ -176,66 +172,6 @@ function startApp() {
             // Create infoWindow
             this.infowindow = new google.maps.InfoWindow({
                 maxWidth: 300
-            });
-
-            // Event listener for clicking on marker
-            var markerListener = function(marker) {
-                google.maps.event.addListener(marker, 'click', function(e) {
-                    // Offset map
-                    self.offsetMap(this);
-
-                    // Assign value of this for use with active marker
-                    var that = this;
-
-                    // De-active previously active marker and make selected marker active
-                    self.isNotActiveMarker();
-                    self.isActiveMarker(that);
-
-                    // Set active class for currently selected place
-                    var htmlLinks = modelController.getHTMLList();
-                    $('.nav-item--active').removeClass('nav-item--active');
-                    $(htmlLinks[this.index]).addClass('nav-item--active');
-
-                    //Adjust infowindow height in mobile views
-                    var windowHeight = window.innerHeight;
-                    var overlayHeight = $('#sidebar').height();
-
-                    if (window.innerWidth < 600) {
-                        $('.infowindow').css("max-height", (windowHeight - overlayHeight) * 0.7);
-                        $('.title').hide();
-                    }
-                });
-            };
-
-            // Create markers on the page and attach infoWindow
-            for (i = 0; i < this.markers.length; i++) {
-                this.markers[i] = new google.maps.Marker({
-                    position: this.markers[i].position,
-                    title: this.markers[i].title,
-                    info:
-                        '<div class="infowindow">' +
-                            '<h2>' + this.markers[i].title + '</h2>' +
-                            '<div>' +
-                                '<div id="yelp">' +
-                                    '<h3 class="source-title">Yelp</h3>' +
-                                '</div>' +
-                                '<div id="google-places">' +
-                                    '<h3 class="source-title">Google Places</h3>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>',
-                    icon: 'img/map-marker.svg',
-                    tags: this.markers[i].tags,
-                    map: map
-                });
-
-                markerListener(this.markers[i]);
-            }
-
-            // Close infoWindow when map clicked
-            google.maps.event.addListener(map, 'click', function(e) {
-                self.infowindow.close();
-                self.isNotActiveMarker();
             });
         },
 
@@ -485,6 +421,67 @@ function startApp() {
         };
         this.makePlaceList();
 
+        // Track the current place
+        this.currentPlace = ko.observable('');
+
+        // Event listener for clicking on marker
+        var markerListener = function(marker) {
+            google.maps.event.addListener(marker, 'click', function(e) {
+                // Offset map
+                mapView.offsetMap(this);
+
+                // Assign value of this for use with active marker
+                var that = this;
+
+                // De-active previously active marker and make selected marker active
+                mapView.isNotActiveMarker();
+                mapView.isActiveMarker(that);
+
+                // Set active class for currently selected place
+                self.currentPlace(marker.title);
+
+                //Adjust infowindow height in mobile views
+                var windowHeight = window.innerHeight;
+                var overlayHeight = $('#sidebar').height();
+
+                if (window.innerWidth < 600) {
+                    $('.infowindow').css("max-height", (windowHeight - overlayHeight) * 0.7);
+                    $('.title').hide();
+                }
+            });
+        };
+
+        // Create markers on the page and attach infoWindow
+        for (i = 0; i < this.markers.length; i++) {
+            this.markers[i] = new google.maps.Marker({
+                position: this.markers[i].position,
+                title: this.markers[i].title,
+                info:
+                    '<div class="infowindow">' +
+                        '<h2>' + this.markers[i].title + '</h2>' +
+                        '<div>' +
+                            '<div id="yelp">' +
+                                '<h3 class="source-title">Yelp</h3>' +
+                            '</div>' +
+                            '<div id="google-places">' +
+                                '<h3 class="source-title">Google Places</h3>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>',
+                icon: 'img/map-marker.svg',
+                tags: this.markers[i].tags,
+                map: map
+            });
+
+            markerListener(this.markers[i]);
+        }
+
+        // Close infoWindow when map clicked
+        google.maps.event.addListener(map, 'click', function(e) {
+            mapView.infowindow.close();
+            mapView.isNotActiveMarker();
+        });
+
         // Set the index of the list items
         modelController.setIndex();
 
@@ -511,9 +508,6 @@ function startApp() {
                 $('.title').hide();
             }
         };
-
-        // Track the current place
-        this.currentPlace = ko.observable('');
 
         // Tabs for the search and filter
         this.tabList = ko.observableArray([]);
