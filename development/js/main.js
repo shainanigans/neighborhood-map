@@ -1,3 +1,5 @@
+'use strict';
+
 function startApp() {
     /**********************
      *MODELS
@@ -128,7 +130,7 @@ function startApp() {
 
         setIndex: function() {
             // Set an index for each item, to be used on list clicks
-            for (i = 0; i < placeModel.places.length; i++) {
+            for (var i = 0; i < placeModel.places.length; i++) {
                 placeModel.places[i].index = i;
             }
         },
@@ -195,7 +197,7 @@ function startApp() {
         },
 
         isNotActiveMarker: function() {
-            for (j = 0; j < this.markers.length; j++) {
+            for (var j = 0; j < this.markers.length; j++) {
                 // Stop animation
                 this.markers[j].setAnimation(null);
 
@@ -236,7 +238,7 @@ function startApp() {
                 tokenSecret : auth.accessTokenSecret
             };
 
-            parameters = [];
+            var parameters = [];
             parameters.push(['term', place.title]);
             parameters.push(['location', 'Sydney']);
             parameters.push(['callback', 'cb']);
@@ -421,7 +423,7 @@ function startApp() {
             self.placeList.removeAll();
 
             // Create the array
-            for (i = 0; i < self.markers.length; i++) {
+            for (var i = 0; i < self.markers.length; i++) {
                 self.placeList.push(self.markers[i]);
             }
         };
@@ -458,7 +460,7 @@ function startApp() {
         };
 
         // Create markers on the page and attach infoWindow
-        for (i = 0; i < this.markers.length; i++) {
+        for (var i = 0; i < this.markers.length; i++) {
             this.markers[i] = new google.maps.Marker({
                 position: this.markers[i].position,
                 title: this.markers[i].title,
@@ -521,7 +523,7 @@ function startApp() {
         this.tabList = ko.observableArray([]);
         var tabs = modelController.getTabs();
 
-        for (i = 0; i < tabs.length; i++) {
+        for (var i = 0; i < tabs.length; i++) {
             self.tabList.push(tabs[i]);
         }
 
@@ -534,7 +536,7 @@ function startApp() {
         this.tagList = ko.observableArray([]);
         var tags = modelController.getTags();
 
-        for (i = 0; i < tags.length; i++) {
+        for (var i = 0; i < tags.length; i++) {
             self.tagList.push(tags[i]);
         }
 
@@ -549,7 +551,7 @@ function startApp() {
             mapView.infowindow.close();
 
             // Add locations back into the array as they are found
-            for (i = 0; i < self.markers.length; i++) {
+            for (var i = 0; i < self.markers.length; i++) {
                 if (self.markers[i].title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
                     // Re-add the list location
                     self.placeList.push(self.markers[i]);
@@ -583,7 +585,7 @@ function startApp() {
                 mapView.infowindow.close();
 
                 // Add locations back into the array as they match the filterTag
-                for (i = 0; i < self.markers.length; i++) {
+                for (var i = 0; i < self.markers.length; i++) {
                     if (self.markers[i].tags.indexOf(value) >= 0) {
                         // Re-add the list location
                         self.placeList.push(self.markers[i]);
@@ -611,7 +613,7 @@ function startApp() {
             // Add back all the places and markers to the list if they've been filtered out
             self.makePlaceList();
 
-            for (i = 0; i < mapView.markers.length; i++) {
+            for (var i = 0; i < mapView.markers.length; i++) {
                 mapView.markers[i].setVisible(true);
             }
 
