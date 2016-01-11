@@ -20,8 +20,8 @@ function startApp() {
     };
 
     // Marker Model
-    var markerModel = {
-        markers: [
+    var placeModel = {
+        places: [
             {
                 title: 'Golden Lotus',
                 position: {lat: -33.89840, lng: 151.17817},
@@ -121,15 +121,15 @@ function startApp() {
                 }
             }
 
-            markerModel.markers.sort(compare);
+            placeModel.places.sort(compare);
 
-            return markerModel.markers;
+            return placeModel.places;
         },
 
         setIndex: function() {
             // Set an index for each item, to be used on list clicks
-            for (i = 0; i < markerModel.markers.length; i++) {
-                markerModel.markers[i].index = i;
+            for (i = 0; i < placeModel.places.length; i++) {
+                placeModel.places[i].index = i;
             }
         },
 
